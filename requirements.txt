@@ -1,0 +1,2 @@
+pycoin==0.80
+requests

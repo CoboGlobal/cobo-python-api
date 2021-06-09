@@ -26,15 +26,16 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(res['success'])
 
     def test_batch_new_deposit_address(self):
-        res = self.client.batch_new_deposit_address("BTC",4)
+        res = self.client.batch_new_deposit_address("BTC", 4)
         self.assertTrue(res['success'])
 
     def test_verify_deposit_address(self):
-        res = self.client.verify_deposit_address("ETH","0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee")
+        res = self.client.verify_deposit_address("ETH", "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee")
         self.assertTrue(res['result'])
 
     def test_batch_verify_deposit_address(self):
-        res = self.client.batch_verify_deposit_address("ETH", "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee,0x05325e6f9d1f0437bd78a72c2ae084fbb8c039e1")
+        res = self.client.batch_verify_deposit_address("ETH",
+                                                       "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee,0x05325e6f9d1f0437bd78a72c2ae084fbb8c039e1")
         self.assertTrue(res['result'])
 
     def test_verify_valid_address(self):
@@ -48,11 +49,12 @@ class ClientTest(unittest.TestCase):
 
     # loop alliance
     def test_check_loop_address_details(self):
-        res = self.client.check_loop_address_details("ETH","0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a")
+        res = self.client.check_loop_address_details("ETH", "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a")
         self.assertTrue(res['success'])
 
     def test_verify_loop_address_list(self):
-        res = self.client.verify_loop_address_list("ETH", "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a,0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee")
+        res = self.client.verify_loop_address_list("ETH",
+                                                   "0xe7ebdc5bbb6c99cc8f7f2c1c83ff38aa6647f38a,0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee")
         self.assertTrue(res['success'])
 
     def test_get_transaction_details(self):
@@ -88,7 +90,7 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(res['success'])
 
     def test_get_staking_product_details(self):
-        res = self.client.get_staking_product_list("DASH")
+        res = self.client.get_staking_product_list()
         product_id = res['result'][0]['product_id']
         res = self.client.get_staking_product_details(product_id)
         self.assertTrue(res['result'])
@@ -98,12 +100,12 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(res['result'])
 
     def test_stake(self):
-        res = self.client.get_staking_product_list("DASH")
+        res = self.client.get_staking_product_list()
         product_id = res['result'][0]['product_id']
         res = self.client.stake(product_id, 1000000)
 
     def test_unstake(self):
-        res = self.client.get_staking_product_list("DASH")
+        res = self.client.get_staking_product_list()
         product_id = res['result'][0]['product_id']
         res = self.client.unstake(product_id, 1000000)
 

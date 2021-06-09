@@ -6,6 +6,7 @@ cobo-python-api is a lightweight Python library for interacting with the [Cobo C
 * [Test](#test)
 * [Usage](#usage)
   * [Initialize](#initialize)
+     * [Generate Key Pair](#generate-key-pair)
      * [Initialize RestClient](#initialize-restclient)
      * [Initialize ApiSigner](#initialize-apisigner)
   * [Account](#account)
@@ -45,8 +46,10 @@ cobo-python-api is a lightweight Python library for interacting with the [Cobo C
 
 ## Installation
 
+add dependency in `requirements.txt`
+
 ```
- TODO
+git+git://github.com/CoboCustody/cobo-python-api@releases/tag/v0.1#egg=cobo-python-api
 ```
 
 
@@ -59,6 +62,16 @@ python -m unittest test.ClientTest
 ## Usage
 
 ### Initialize
+
+#### Generate Key Pair
+
+```python
+api_secret, api_key = LocalSigner.generate_new_key()
+print(api_secret)
+print(api_key)
+```
+
+Please refer to the [link](https://doc.custody.cobo.com/en.html#api-authentication) for how to use api key
 
 #### Initialize RestClient
 

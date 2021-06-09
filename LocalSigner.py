@@ -1,8 +1,9 @@
 import hashlib
 from binascii import a2b_hex, b2a_hex
 
-from pycoin.encoding import from_bytes_32
+from pycoin.encoding import from_bytes_32, to_bytes_32, public_pair_to_sec
 from pycoin.key import Key
+import secrets
 
 from ApiSigner import ApiSigner
 
@@ -23,3 +24,16 @@ class LocalSigner(ApiSigner):
     def verify(content, signature, pub_key):
         key = Key.from_sec(a2b_hex(pub_key))
         return key.verify(LocalSigner.double_hash256(content), a2b_hex(signature))
+
+    @staticmethod
+    def generate_new_key():
+        secret = secrets.randbits(256)
+        priv_key = b2a_hex(to_bytes_32(secret)).decode()
+        key = Key(secret_exponent=secret)
+        pub_key = public_pair_to_sec(key.public_pair())
+        return priv_key, b2a_hex(pub_key).decode()
+
+_secret, _key = LocalSigner.generate_new_key()
+print("API_SECRET: %s" % _secret)
+print("API_KEY: %s" % _key)
+

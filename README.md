@@ -12,7 +12,7 @@ cobo-python-api is a lightweight Python library for interacting with the [Cobo C
      * [Check Account Details](#check-account-details)
      * [Get Coin Details](#get-coin-details)
      * [Get New Deposit Address](#get-new-deposit-address)
-     * [Batch Aet New Deposit Address](#batch-aet-new-deposit-address)
+     * [Batch New Deposit Address](#batch-new-deposit-address)
      * [Verify Deposit Address](#verify-deposit-address)
      * [Batch Verify Deposit Address](#batch-verify-deposit-address)
      * [Verify Valid Address](#verify-valid-address)

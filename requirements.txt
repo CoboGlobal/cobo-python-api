@@ -1,2 +1,2 @@
-pycoin==0.80
+ecdsa==0.17.0
 requests

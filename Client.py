@@ -4,12 +4,13 @@ from urllib.parse import urlencode
 
 import requests
 
+from ApiSigner import ApiSigner
 from LocalSigner import LocalSigner
 
 
 class Client(object):
 
-    def __init__(self, api_key, api_signer, cobo_pub, host="https://api.sandbox.cobo.com"):
+    def __init__(self, api_key: str, api_signer: ApiSigner, cobo_pub: str, host: str = "https://api.sandbox.cobo.com"):
         self.api_signer = api_signer
         self.api_key = api_key
         self.host = host

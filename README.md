@@ -46,10 +46,8 @@ cobo-python-api is a lightweight Python library for interacting with the [Cobo C
 
 ## Installation
 
-add dependency in `requirements.txt`
-
 ```
-git+git://github.com/CoboCustody/cobo-python-api@releases/tag/v0.1#egg=cobo-python-api
+pip install cobo-python-api
 ```
 
 
@@ -66,7 +64,8 @@ python -m unittest test.ClientTest
 #### Generate Key Pair
 
 ```python
-api_secret, api_key = LocalSigner.generate_new_key()
+from cobo.signer.LocalSigner import generate_new_key
+api_secret, api_key = generate_new_key()
 print(api_secret)
 print(api_key)
 ```
@@ -76,6 +75,7 @@ Please refer to the [link](https://doc.custody.cobo.com/en.html#api-authenticati
 #### Initialize RestClient
 
 ```python
+from cobo.client import Client
 client = Client("API_KEY",API_SIGNER,"COBO_PUB")
 ```
 
@@ -310,7 +310,7 @@ client.get_transaction_history()
 ###  Withdrawal
 #### Submit Withdraw Request
 ```python
-client.withdraw("TETH", uuid.uuid1(), "0xb744adc8d75e115eec8e582eb5e8d60eb0972037", 1)
+client.withdraw("TETH","0xb744adc8d75e115eec8e582eb5e8d60eb0972037", 1)
 ```
 <details>
 <summary>View Response</summary>

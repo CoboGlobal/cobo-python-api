@@ -5,8 +5,8 @@ from urllib.parse import urlencode
 
 import requests
 
-from ApiSigner import ApiSigner
-from LocalSigner import LocalSigner
+from cobo.signer import ApiSigner
+from cobo.signer.LocalSigner import verify_ecdsa_signature
 
 
 class Client(object):
@@ -43,7 +43,7 @@ class Client(object):
         try:
             timestamp = response.headers["BIZ_TIMESTAMP"]
             signature = response.headers["BIZ_RESP_SIGNATURE"]
-            success = LocalSigner.verify("%s|%s" % (content, timestamp), signature, self.cobo_pub)
+            success = verify_ecdsa_signature("%s|%s" % (content, timestamp), signature, self.cobo_pub)
         except KeyError:
             pass
         return success, json.loads(content)
@@ -192,7 +192,7 @@ class Client(object):
 
     def withdraw(self, coin, address, amount, request_id=None, memo=None, force_external=None, force_internal=None):
         if not request_id:
-            request_id = f"sdk_request_id_f{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
+            request_id = f"sdk_request_id_{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
 
         params = {
             "coin": coin,

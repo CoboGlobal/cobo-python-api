@@ -1,9 +1,10 @@
 import hashlib
 
 import ecdsa
+from ecdsa import BadSignatureError
 from ecdsa.util import sigencode_der, sigdecode_der
 
-from ApiSigner import ApiSigner
+from cobo.signer.ApiSigner import ApiSigner
 
 
 class LocalSigner(ApiSigner):
@@ -21,19 +22,21 @@ class LocalSigner(ApiSigner):
     def double_hash256(content):
         return hashlib.sha256(hashlib.sha256(content.encode()).digest()).digest()
 
-    @staticmethod
-    def verify(content: str, signature: str, pub_key: str):
-        vk: ecdsa.VerifyingKey = ecdsa.VerifyingKey.from_string(bytes.fromhex(pub_key),
-                                                                hashfunc=hashlib.sha256,
-                                                                curve=ecdsa.SECP256k1)
 
+def verify_ecdsa_signature(content: str, signature: str, pub_key: str):
+    vk: ecdsa.VerifyingKey = ecdsa.VerifyingKey.from_string(bytes.fromhex(pub_key),
+                                                            hashfunc=hashlib.sha256,
+                                                            curve=ecdsa.SECP256k1)
+    try:
         return vk.verify(signature=bytes.fromhex(signature),
                          data=hashlib.sha256(content.encode()).digest(),
                          hashfunc=hashlib.sha256,
                          sigdecode=sigdecode_der)
+    except BadSignatureError:
+        return False
 
-    @staticmethod
-    def generate_new_key():
-        sk: ecdsa.SigningKey = ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
-        vk: ecdsa.VerifyingKey = sk.verifying_key
-        return sk.to_string().hex(), vk.to_string("compressed").hex()
+
+def generate_new_key():
+    sk: ecdsa.SigningKey = ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
+    vk: ecdsa.VerifyingKey = sk.verifying_key
+    return sk.to_string().hex(), vk.to_string("compressed").hex()

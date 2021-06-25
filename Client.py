@@ -1,5 +1,6 @@
 import json
 import time
+from hashlib import sha256
 from urllib.parse import urlencode
 
 import requests
@@ -189,7 +190,10 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/transaction_history/", params)
 
-    def withdraw(self, coin, request_id, address, amount, memo=None, force_external=None, force_internal=None):
+    def withdraw(self, coin, address, amount, request_id=None, memo=None, force_external=None, force_internal=None):
+        if not request_id:
+            request_id = f"sdk_request_id_f{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
+
         params = {
             "coin": coin,
             "request_id": request_id,

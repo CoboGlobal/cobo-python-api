@@ -1,5 +1,4 @@
 import unittest
-import uuid
 
 from Client import Client
 from LocalSigner import LocalSigner
@@ -82,7 +81,7 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(res['success'])
 
     def test_withdraw(self):
-        res = self.client.withdraw("TETH", uuid.uuid1(), "0xb744adc8d75e115eec8e582eb5e8d60eb0972037", 1)
+        res = self.client.withdraw("TETH", "0xb744adc8d75e115eec8e582eb5e8d60eb0972037", 1)
         self.assertTrue(res['success'])
 
     def test_query_withdraw_info(self):

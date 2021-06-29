@@ -64,7 +64,7 @@ python -m unittest test.ClientTest
 #### Generate Key Pair
 
 ```python
-from cobo.signer.LocalSigner import generate_new_key
+from cobo.signer.local_signer import generate_new_key
 api_secret, api_key = generate_new_key()
 print(api_secret)
 print(api_key)
@@ -76,7 +76,7 @@ Please refer to the [link](https://doc.custody.cobo.com/en.html#api-authenticati
 
 ```python
 from cobo.client import Client
-client = Client("API_KEY",API_SIGNER,"COBO_PUB")
+client = Client(signer=signer, env=SANDBOX, debug=True)
 ```
 
 #### Initialize ApiSigner

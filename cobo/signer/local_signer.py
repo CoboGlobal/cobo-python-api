@@ -1,13 +1,15 @@
 import hashlib
 
 import ecdsa
-from ecdsa import BadSignatureError
 from ecdsa.util import sigencode_der, sigdecode_der
 
-from cobo.signer.ApiSigner import ApiSigner
+from cobo.signer.api_signer import ApiSigner
 
 
 class LocalSigner(ApiSigner):
+
+    def get_public_key(self) -> str:
+        return self.key.verifying_key.to_string("compressed").hex()
 
     def __init__(self, priv_key: str):
         secexp = int.from_bytes(bytes.fromhex(priv_key), 'big')
@@ -19,7 +21,7 @@ class LocalSigner(ApiSigner):
                              sigencode=sigencode_der).hex()
 
     @staticmethod
-    def double_hash256(content):
+    def double_hash256(content: str):
         return hashlib.sha256(hashlib.sha256(content.encode()).digest()).digest()
 
 
@@ -32,7 +34,7 @@ def verify_ecdsa_signature(content: str, signature: str, pub_key: str):
                          data=hashlib.sha256(content.encode()).digest(),
                          hashfunc=hashlib.sha256,
                          sigdecode=sigdecode_der)
-    except BadSignatureError:
+    except ecdsa.BadSignatureError:
         return False
 
 

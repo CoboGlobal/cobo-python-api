@@ -1,2 +1,4 @@
 .idea
 venv
+/dist
+/cobo_python_api.egg-info

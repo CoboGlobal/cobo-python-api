@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class ApiException:
+class ApiError:
     errorCode: int
     errorMessage: str
     errorId: str

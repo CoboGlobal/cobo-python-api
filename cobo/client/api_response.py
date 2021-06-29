@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional
 
-from cobo.exception.api_exception import ApiException
+from cobo.error.api_error import ApiError
 
 
 @dataclass
 class ApiResponse:
     success: bool
     result: Optional[dict]
-    exception: Optional[ApiException]
+    exception: Optional[ApiError]

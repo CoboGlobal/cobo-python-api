@@ -17,8 +17,8 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(response.success)
 
     def test_get_coin_info(self):
-        response = self.client.get_coin_info("AETH")
-        self.assertFalse(response.success)
+        response = self.client.get_coin_info("ETH")
+        self.assertTrue(response.success)
 
     def test_new_deposit_address(self):
         response = self.client.new_deposit_address("BTC")

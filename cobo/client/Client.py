@@ -7,7 +7,7 @@ import requests
 
 from cobo.client.api_response import ApiResponse
 from cobo.config import Env
-from cobo.exception.api_exception import ApiException
+from cobo.error.api_error import ApiError
 from cobo.signer import api_signer
 from cobo.signer.local_signer import verify_ecdsa_signature
 
@@ -87,7 +87,7 @@ class Client(object):
         if success:
             return ApiResponse(True, result['result'], None)
         else:
-            exception = ApiException(result['error_code'], result['error_message'], result['error_id'])
+            exception = ApiError(result['error_code'], result['error_message'], result['error_id'])
             return ApiResponse(False, None, exception)
 
     def get_account_info(self) -> ApiResponse:

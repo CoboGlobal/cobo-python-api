@@ -5,27 +5,29 @@ from urllib.parse import urlencode
 
 import requests
 
-from cobo.signer import ApiSigner
-from cobo.signer.LocalSigner import verify_ecdsa_signature
+from cobo.client.api_response import ApiResponse
+from cobo.config import Env
+from cobo.error.api_error import ApiError
+from cobo.signer.api_signer import ApiSigner
+from cobo.signer.local_signer import verify_ecdsa_signature
 
 
 class Client(object):
 
-    def __init__(self, api_key: str, api_signer: ApiSigner, cobo_pub: str, host: str = "https://api.sandbox.cobo.com"):
-        self.api_signer = api_signer
-        self.api_key = api_key
-        self.host = host
-        self.cobo_pub = cobo_pub
+    def __init__(self, signer: ApiSigner, env: Env, debug: bool = False):
+        self.api_signer = signer
+        self.env = env
+        self.debug = debug
 
-    def sort_params(self, params):
+    def sort_params(self, params: dict) -> str:
         params = [(key, val) for key, val in params.items()]
 
         params.sort(key=lambda x: x[0])
         return urlencode(params)
 
-    def remove_none_value_elements(self, input_dict):
+    def remove_none_value_elements(self, input_dict: dict) -> dict:
         if type(input_dict) is not dict:
-            return None
+            return {}
         result = {}
         for key in input_dict:
             tmp = {}
@@ -37,23 +39,25 @@ class Client(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response):
+    def verify_response(self, response: requests.Response) -> (bool, dict):
         content = response.content.decode()
         success = True
         try:
             timestamp = response.headers["BIZ_TIMESTAMP"]
             signature = response.headers["BIZ_RESP_SIGNATURE"]
-            success = verify_ecdsa_signature("%s|%s" % (content, timestamp), signature, self.cobo_pub)
+            if self.debug:
+                print(f"response <<<<<<<< \n content: {content}\n headers: {response.headers} \n")
+            success = verify_ecdsa_signature("%s|%s" % (content, timestamp), signature, self.env.coboPub)
         except KeyError:
             pass
         return success, json.loads(content)
 
     def request(
             self,
-            method,
-            path,
-            params
-    ):
+            method: str,
+            path: str,
+            params: dict
+    ) -> ApiResponse:
         method = method.upper()
         nonce = str(int(time.time() * 1000))
         params = self.remove_none_value_elements(params)
@@ -61,11 +65,14 @@ class Client(object):
         sign = self.api_signer.sign(content)
 
         headers = {
-            "Biz-Api-Key": self.api_key,
+            "Biz-Api-Key": self.api_signer.get_public_key(),
             "Biz-Api-Nonce": nonce,
             "Biz-Api-Signature": sign,
         }
-        url = f"{self.host}{path}"
+        url = f"{self.env.host}{path}"
+        if self.debug:
+            print(f"request >>>>>>>>\n method: {method} \n url: {url} \n params: {params} \n headers: {headers} \n")
+
         if method == "GET":
             resp = requests.get(url, params=urlencode(params), headers=headers)
         elif method == "POST":
@@ -75,16 +82,21 @@ class Client(object):
         verify_success, result = self.verify_response(resp)
         if not verify_success:
             raise Exception("Fatal: verify content error, maybe encounter mid man attack")
-        print(result)
-        return result
 
-    def get_account_info(self):
+        success = result['success']
+        if success:
+            return ApiResponse(True, result['result'], None)
+        else:
+            exception = ApiError(result['error_code'], result['error_message'], result['error_id'])
+            return ApiResponse(False, None, exception)
+
+    def get_account_info(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/org_info/", {})
 
-    def get_coin_info(self, coin):
+    def get_coin_info(self, coin: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/coin_info/", {"coin": coin})
 
-    def new_deposit_address(self, coin, native_segwit=False):
+    def new_deposit_address(self, coin: str, native_segwit: bool = False) -> ApiResponse:
         params = {
             "coin": coin
         }
@@ -92,7 +104,7 @@ class Client(object):
             params.update({"native_segwit": True})
         return self.request("POST", "/v1/custody/new_address/", params)
 
-    def batch_new_deposit_address(self, coin, count, native_segwit=False):
+    def batch_new_deposit_address(self, coin: str, count: int, native_segwit: bool = False) -> ApiResponse:
         params = {
             "coin": coin,
             "count": count,
@@ -101,20 +113,20 @@ class Client(object):
             params.update({"native_segwit": True})
         return self.request("POST", "/v1/custody/new_addresses/", params)
 
-    def verify_deposit_address(self, coin, address):
+    def verify_deposit_address(self, coin: str, address: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/address_info/", {"coin": coin, "address": address})
 
-    def batch_verify_deposit_address(self, coin, addresses):
+    def batch_verify_deposit_address(self, coin: str, addresses: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/addresses_info/", {"coin": coin, "address": addresses})
 
-    def verify_valid_address(self, coin, address):
+    def verify_valid_address(self, coin: str, address: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/is_valid_address/", {"coin": coin, "address": address})
 
-    def get_address_history(self, coin):
+    def get_address_history(self, coin: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/address_history/", {"coin": coin})
 
     # loop alliance
-    def check_loop_address_details(self, coin, address, memo=None):
+    def check_loop_address_details(self, coin: str, address: str, memo: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "address": address,
@@ -123,18 +135,18 @@ class Client(object):
             params.update({"memo": memo})
         return self.request("GET", "/v1/custody/internal_address_info/", params)
 
-    def verify_loop_address_list(self, coin, addresses):
+    def verify_loop_address_list(self, coin: str, addresses: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/internal_address_info_batch/", {
             "coin": coin,
             "address": addresses,
         })
 
-    def get_transaction_details(self, tx_id):
+    def get_transaction_details(self, tx_id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/transaction/", {"id": tx_id})
 
-    def get_transactions_by_id(self, coin=None, side=None, address=None,
-                               max_id=None, min_id=None, limit=None,
-                               include_financial=None):
+    def get_transactions_by_id(self, coin: str = None, side: str = None, address: str = None,
+                               max_id: str = None, min_id: str = None, limit: str = None,
+                               include_financial: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "side": side,
@@ -146,9 +158,9 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/transactions_by_id/", {"id": params})
 
-    def get_transactions_by_time(self, coin=None, side=None, address=None,
-                                 begin_time=None, end_time=None, limit=None,
-                                 include_financial=None):
+    def get_transactions_by_time(self, coin: str = None, side: str = None, address: str = None,
+                                 begin_time: str = None, end_time: str = None, limit: str = None,
+                                 include_financial: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "side": side,
@@ -160,8 +172,8 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/transactions_by_id/", {"id": params})
 
-    def get_pending_transactions(self, coin=None, side=None,
-                                 max_id=None, min_id=None, limit=None):
+    def get_pending_transactions(self, coin: str = None, side: str = None,
+                                 max_id: str = None, min_id: str = None, limit: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "side": side,
@@ -171,11 +183,12 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/pending_transactions/", {"id": params})
 
-    def get_pending_transaction(self, id):
+    def get_pending_transaction(self, id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/pending_transaction/", {"id": id})
 
-    def get_transaction_history(self, coin=None, side=None, address=None, max_id=None, min_id=None, limit=None,
-                                begin_time=None, end_time=None, include_financial=None):
+    def get_transaction_history(self, coin: str = None, side: str = None, address: str = None, max_id: str = None,
+                                min_id: str = None, limit: str = None,
+                                begin_time: str = None, end_time: str = None, include_financial: str = None):
         params = {
             "coin": coin,
             "side": side,
@@ -190,7 +203,8 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/transaction_history/", params)
 
-    def withdraw(self, coin, address, amount, request_id=None, memo=None, force_external=None, force_internal=None):
+    def withdraw(self, coin: str, address: str, amount: int, request_id: str = None, memo: str = None,
+                 force_external: str = None, force_internal: str = None) -> ApiResponse:
         if not request_id:
             request_id = f"sdk_request_id_{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
 
@@ -206,26 +220,26 @@ class Client(object):
 
         return self.request("POST", "/v1/custody/new_withdraw_request/", params)
 
-    def query_withdraw_info(self, request_id):
+    def query_withdraw_info(self, request_id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/withdraw_info_by_request_id/", {"request_id": request_id})
 
-    def get_staking_product_details(self, product_id, language="en"):
+    def get_staking_product_details(self, product_id: str, language: str = "en") -> ApiResponse:
         return self.request("GET", "/v1/custody/staking_product/", {"product_id": product_id, "language": language})
 
-    def get_staking_product_list(self, coin=None, language="en"):
+    def get_staking_product_list(self, coin: str = None, language: str = "en") -> ApiResponse:
         return self.request("GET", "/v1/custody/staking_products/", {"coin": coin, "language": language})
 
-    def stake(self, product_id, amount):
+    def stake(self, product_id: str, amount: int) -> ApiResponse:
         return self.request("POST", "/v1/custody/staking_stake/", {"product_id": product_id, "amount": amount})
 
-    def unstake(self, product_id, amount):
+    def unstake(self, product_id: str, amount: int) -> ApiResponse:
         return self.request("POST", "/v1/custody/staking_unstake/", {"product_id": product_id, "amount": amount})
 
-    def get_stakings(self, coin=None, language="en"):
+    def get_stakings(self, coin: str = None, language: str = "en") -> ApiResponse:
         return self.request("GET", "/v1/custody/stakings/", {"coin": coin, "language": language})
 
-    def get_unstakings(self, coin=None):
+    def get_unstakings(self, coin: str = None) -> ApiResponse:
         return self.request("GET", "/v1/custody/unstakings/", {"coin": coin})
 
-    def get_staking_history(self):
-        return self.request("GET", "/v1/custody/staking_history/",{})
+    def get_staking_history(self) -> ApiResponse:
+        return self.request("GET", "/v1/custody/staking_history/", {})

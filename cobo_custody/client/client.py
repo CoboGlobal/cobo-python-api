@@ -5,11 +5,11 @@ from urllib.parse import urlencode
 
 import requests
 
-from cobo.client.api_response import ApiResponse
-from cobo.config import Env
-from cobo.error.api_error import ApiError
-from cobo.signer.api_signer import ApiSigner
-from cobo.signer.local_signer import verify_ecdsa_signature
+from cobo_custody.client.api_response import ApiResponse
+from cobo_custody.config import Env
+from cobo_custody.error.api_error import ApiError
+from cobo_custody.signer.api_signer import ApiSigner
+from cobo_custody.signer.local_signer import verify_ecdsa_signature
 
 
 class Client(object):

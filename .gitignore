@@ -2,3 +2,5 @@
 venv
 /dist
 /cobo_python_api.egg-info
+cobo_custody.egg-info
+.DS_Store

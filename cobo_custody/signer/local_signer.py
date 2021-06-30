@@ -3,7 +3,7 @@ import hashlib
 import ecdsa
 from ecdsa.util import sigencode_der, sigdecode_der
 
-from cobo.signer.api_signer import ApiSigner
+from cobo_custody.signer.api_signer import ApiSigner
 
 
 class LocalSigner(ApiSigner):

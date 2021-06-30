@@ -1,7 +1,7 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 setup(
-    name="cobo-python-api",
-    version="0.28",
+    name="cobo_custody",
+    version="0.10",
     author="Cobo",
     author_email="support@cobo.com",
     description="Cobo Custody restful api",
@@ -10,7 +10,7 @@ setup(
     license="Cobo Copyright Reserved",
     python_requires=">=3.7",
     url="https://github.com/CoboCustody/cobo-python-api",
-    packages=['cobo', 'cobo.signer', 'cobo.client', 'cobo.error', 'cobo.config'],
+    packages=['cobo_custody', 'cobo_custody.signer', 'cobo_custody.client', 'cobo_custody.error', 'cobo_custody.config'],
     include_package_data=True,
     install_requires=["ecdsa==0.17.0", "requests"]
     # zip_safe=False,

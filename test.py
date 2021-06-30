@@ -1,13 +1,13 @@
 import unittest
 
-from cobo.client import Client
-from cobo.config import SANDBOX
-from cobo.signer.local_signer import LocalSigner
+from cobo_custody.client import Client
+from cobo_custody.config import SANDBOX
+from cobo_custody.signer.local_signer import LocalSigner
 
 
 class ClientTest(unittest.TestCase):
     def setUp(self):
-        self.client = Client(signer=LocalSigner("apiSecret"),
+        self.client = Client(signer=LocalSigner("e7e73fabdd9edb8bddf947954c400a63bf93edc57abf170544ec570757df5453"),
                              env=SANDBOX,
                              debug=True)
 

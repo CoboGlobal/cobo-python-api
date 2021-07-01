@@ -7,7 +7,7 @@ from cobo_custody.signer.local_signer import LocalSigner
 
 class ClientTest(unittest.TestCase):
     def setUp(self):
-        self.client = Client(signer=LocalSigner("e7e73fabdd9edb8bddf947954c400a63bf93edc57abf170544ec570757df5453"),
+        self.client = Client(signer=LocalSigner("apiSecret"),
                              env=SANDBOX,
                              debug=True)
 

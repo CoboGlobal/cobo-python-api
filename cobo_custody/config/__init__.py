@@ -17,7 +17,7 @@ SANDBOX_TEST_DATA = {
                     "loop_addresses": {"BTC": "35eXJPLRTSp4Wn8n2f6pkQF4t3KdU2cuhz,34R4JHecUwGNEFVGKz1vR8R6BHGi5FUqPt",
                                        "XRP": "rfKyCMyoV6Ln2GZ7YDbrBrnXCbAyBbxRqB|477817505,rfKyCMyoV6Ln2GZ7YDbrBrnXCbAyBbxRqB|2874421071"}}
 
-PROD_TEST_DATE = {
+PROD_TEST_DATA = {
                     "tx_id": "20220311154108000184408000002833",
                     "withdraw_id":"sdk_request_id_fe80cc5f_1647068483396",
                     "deposit_address": {"BTC":"36xYx7vf7DUKpJDixpY3EoV2jchFwYSNCb",

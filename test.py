@@ -1,17 +1,22 @@
-from cobo_custody.config import SANDBOX_ENV as ENV
-from cobo_custody.config import SANDBOX_TEST_DATA as TEST_DATA
-# from cobo_custody.config import PROD_ENV as ENV
-# from cobo_custody.config import PROD_TEST_DATE as TEST_DATA
+from cobo_custody.config import SANDBOX_ENV
+from cobo_custody.config import SANDBOX_TEST_DATA
+from cobo_custody.config import PROD_ENV
+from cobo_custody.config import PROD_TEST_DATA
 
 import unittest
 from cobo_custody.client import Client
 from cobo_custody.signer.local_signer import LocalSigner
 from parameterized import param, parameterized
+import sys
 
 class ClientTest(unittest.TestCase):
+    api_secret = "api_secret"
+    ENV = SANDBOX_ENV
+    TEST_DATA = SANDBOX_TEST_DATA
+
     def setUp(self):
-        self.client = Client(signer=LocalSigner("apiSecret"),
-                             env=ENV,
+        self.client = Client(signer=LocalSigner(self.api_secret),
+                             env=self.ENV,
                              debug=True)
 
     # account and address
@@ -96,12 +101,12 @@ class ClientTest(unittest.TestCase):
 
     @parameterized.expand(
         [
-            param(coin="BTC", address=TEST_DATA["deposit_address"]["BTC"]),
-            param(coin="XRP", address=TEST_DATA["deposit_address"]["XRP"])
+            param(coin="BTC"),
+            param(coin="XRP")
         ]
     )
-    def test_verify_valid_deposit_address(self, coin, address):
-        response = self.client.verify_deposit_address(coin=coin, address=address)
+    def test_verify_valid_deposit_address(self, coin):
+        response = self.client.verify_deposit_address(coin=coin, address= self.TEST_DATA["deposit_address"][coin])
         self.assertTrue(response.success)
 
     @parameterized.expand(
@@ -117,12 +122,12 @@ class ClientTest(unittest.TestCase):
 
     @parameterized.expand(
         [
-            param(coin="BTC", addresses=TEST_DATA["deposit_addresses"]["BTC"], count=2),
-            param(coin="XRP", addresses=TEST_DATA["deposit_addresses"]["XRP"], count=2)
+            param(coin="BTC", count=2),
+            param(coin="XRP", count=2)
         ]
     )
-    def test_batch_verify_valid_deposit_address(self, coin, addresses, count):
-        response = self.client.batch_verify_deposit_address(coin=coin, addresses=addresses)
+    def test_batch_verify_valid_deposit_address(self, coin, count):
+        response = self.client.batch_verify_deposit_address(coin=coin, addresses= self.TEST_DATA["deposit_addresses"][coin])
         self.assertTrue(response.success)
         self.assertEqual(len(response.result["addresses"].split(",")), count)
 
@@ -189,29 +194,36 @@ class ClientTest(unittest.TestCase):
 
     @parameterized.expand(
         [
-            param(coin="BTC", address=TEST_DATA["loop_address"]["BTC"], memo=None),
-            param(coin="XRP", address=TEST_DATA["loop_address"]["XRP"].split("|")[0], memo=TEST_DATA["loop_address"]["XRP"].split("|")[1]),
+            param(coin="BTC", memo=False),
+            param(coin="XRP", memo=True),
         ]
     )
-    def test_check_loop_address_details(self, coin, address, memo=None):
-        response = self.client.check_loop_address_details(coin=coin, address=address, memo=memo)
+    def test_check_loop_address_details(self, coin, memo=None):
+        if memo:
+            address = self.TEST_DATA["loop_address"][coin].split("|")[0]
+            mome_info = self.TEST_DATA["loop_address"][coin].split("|")[1]
+        else:
+            address = self.TEST_DATA["loop_address"][coin]
+            mome_info =None
+
+        response = self.client.check_loop_address_details(coin=coin, address=address, memo=mome_info)
         self.assertTrue(response.success)
         self.assertTrue(response.result["is_internal_address"])
 
     @parameterized.expand(
         [
-            param(coin="BTC", addresses=TEST_DATA["loop_addresses"]["BTC"]),
-            param(coin="XRP", addresses=TEST_DATA["loop_addresses"]["XRP"]),
+            param(coin="BTC"),
+            param(coin="XRP"),
         ]
     )
-    def test_verify_loop_address_list(self, coin, addresses):
-        response = self.client.verify_loop_address_list(coin=coin, addresses=addresses)
+    def test_verify_loop_address_list(self, coin):
+        response = self.client.verify_loop_address_list(coin=coin, addresses=self.TEST_DATA["loop_addresses"][coin])
         self.assertTrue(response.success)
         for address_info in response.result:
             self.assertTrue(address_info["is_internal_address"])
 
     def test_get_transaction_details(self):
-        response = self.client.get_transaction_details(TEST_DATA["tx_id"])
+        response = self.client.get_transaction_details(self.TEST_DATA["tx_id"])
         self.assertTrue(response.success)
 
     def test_get_transactions_by_id(self):
@@ -251,7 +263,7 @@ class ClientTest(unittest.TestCase):
         self.assertTrue(response.success)
 
     def test_query_withdraw_info(self):
-        response = self.client.query_withdraw_info(TEST_DATA["withdraw_id"])
+        response = self.client.query_withdraw_info(self.TEST_DATA["withdraw_id"])
         self.assertTrue(response.success)
 
     def test_get_staking_product_list(self):
@@ -296,4 +308,12 @@ class ClientTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        env =  sys.argv.pop()
+        api_secret = sys.argv.pop()
+
+        ClientTest.api_secret = api_secret
+        ClientTest.ENV = SANDBOX_ENV if env == "sandbox" else PROD_ENV
+        ClientTest.TEST_DATA = SANDBOX_TEST_DATA if env == "sandbox" else PROD_TEST_DATA
+
     unittest.main()

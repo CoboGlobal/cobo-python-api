@@ -17,7 +17,7 @@ class ClientTest(unittest.TestCase):
     def setUp(self):
         self.client = Client(signer=LocalSigner(self.api_secret),
                              env=self.ENV,
-                             debug=True)
+                             debug=False)
 
     # account and address
     def test_get_account_info(self):

@@ -8,6 +8,7 @@ from cobo_custody.client import Client
 from cobo_custody.signer.local_signer import LocalSigner
 from parameterized import param, parameterized
 import sys
+import argparse
 
 class ClientTest(unittest.TestCase):
     api_secret = "api_secret"
@@ -308,13 +309,22 @@ class ClientTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        api_secret = sys.argv.pop()
-        env =  sys.argv.pop()
 
+    if len(sys.argv) > 1:
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--env", nargs='?', default="sandbox")
+        parser.add_argument("--secret",  type=str, required=True)
+        args = parser.parse_args()
+        env = args.env if args.env else "sandbox"
+        api_secret = args.secret
 
         ClientTest.api_secret = api_secret
         ClientTest.ENV = SANDBOX_ENV if env == "sandbox" else PROD_ENV
         ClientTest.TEST_DATA = SANDBOX_TEST_DATA if env == "sandbox" else PROD_TEST_DATA
 
-    unittest.main()
+    # unittest.main()
+    runner = unittest.TextTestRunner()
+    suite = unittest.TestLoader().loadTestsFromTestCase(ClientTest)
+    runner.run(suite)
+
+

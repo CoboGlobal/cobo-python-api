@@ -9,6 +9,8 @@ from cobo_custody.signer.local_signer import LocalSigner
 from parameterized import param, parameterized
 import sys
 import argparse
+import time
+from hashlib import sha256
 
 class ClientTest(unittest.TestCase):
     api_secret = "api_secret"
@@ -107,7 +109,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_verify_valid_deposit_address(self, coin):
-        response = self.client.verify_deposit_address(coin=coin, address= self.TEST_DATA["deposit_address"][coin])
+        response = self.client.verify_deposit_address(coin=coin, address=self.TEST_DATA["deposit_address"][coin])
         self.assertTrue(response.success)
 
     @parameterized.expand(
@@ -260,7 +262,8 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_withdraw(self, coin, address, memo, amount):
-        response = self.client.withdraw(coin=coin, address=address, memo=memo, amount=amount)
+        request_id = f"sdk_request_id_{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
+        response = self.client.withdraw(coin=coin, address=address, memo=memo, amount=amount, request_id=request_id)
         self.assertTrue(response.success)
 
     def test_query_withdraw_info(self):

@@ -262,7 +262,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_withdraw(self, coin, address, memo, amount):
-        request_id = f"sdk_request_id_{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
+        request_id = f"request_id_{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
         response = self.client.withdraw(coin=coin, address=address, memo=memo, amount=amount, request_id=request_id)
         self.assertTrue(response.success)
 

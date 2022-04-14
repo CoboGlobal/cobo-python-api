@@ -36,7 +36,8 @@ jobs:
 
       - name: run testcase
         env:
+            ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'sandbox'}}"
             SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
-        run: python test.py --env ${{ github.event.inputs.environment }} --secret $SECRET
+        run: python test.py --env $ENV --secret $SECRET
 
 

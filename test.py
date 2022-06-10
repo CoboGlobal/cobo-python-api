@@ -256,9 +256,8 @@ class ClientTest(unittest.TestCase):
 
     @parameterized.expand(
         [
-            param(coin="COBO_ETH", address="0xE410157345be56688F43FF0D9e4B2B38Ea8F7828",memo=None, amount=1),
-            param(coin="XRP", address="rndm7RphBZG6CpZvKcG9AjoFbSvcKhwLCx",memo=None, amount=1),
-            param(coin="XRP", address="rGNXLMNHkUEtoo7qkCSHEm2sfMo8F969oZ",memo="2200701580", amount=1)
+            param(coin="COBO_ETH", address="0xE410157345be56688F43FF0D9e4B2B38Ea8F7828", memo=None, amount=1),
+            param(coin="XLM", address="GBJDU6TPWHKGV7HRLNTIBA46MG3MB5DUG6BISHX3BF7I75H2HLPV6RJX", memo="4e73f03b", amount=1)
         ]
     )
     def test_withdraw(self, coin, address, memo, amount):

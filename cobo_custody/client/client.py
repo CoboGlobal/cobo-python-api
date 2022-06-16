@@ -170,7 +170,7 @@ class Client(object):
             "limit": limit,
             "include_financial": include_financial
         }
-        return self.request("GET", "/v1/custody/transactions_by_id/", params)
+        return self.request("GET", "/v1/custody/transactions_by_time/", params)
 
     def get_pending_transactions(self, coin: str = None, side: str = None,
                                  max_id: str = None, min_id: str = None, limit: str = None) -> ApiResponse:
@@ -181,7 +181,7 @@ class Client(object):
             "min_id": min_id,
             "limit": limit
         }
-        return self.request("GET", "/v1/custody/transactions_by_time/", params)
+        return self.request("GET", "/v1/custody/pending_transactions/", params)
 
     def get_pending_transaction(self, id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/pending_transaction/", {"id": id})

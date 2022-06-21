@@ -144,6 +144,10 @@ class Client(object):
     def get_transaction_details(self, tx_id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/transaction/", {"id": tx_id})
 
+    def get_transaction_by_txid(self, txid: str) -> ApiResponse:
+        return self.request("GET", "/v1/custody/transaction_by_txid/", {"txid": txid})
+
+
     def get_transactions_by_id(self, coin: str = None, side: str = None, address: str = None,
                                max_id: str = None, min_id: str = None, limit: str = None,
                                include_financial: str = None) -> ApiResponse:

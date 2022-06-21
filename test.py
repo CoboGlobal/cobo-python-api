@@ -60,6 +60,10 @@ class ClientTest(unittest.TestCase):
         response = self.client.get_transaction_details("20210422193807000343569000002370")
         self.assertTrue(response.success)
 
+    def test_get_transaction_by_txid(self):
+        response = self.client.get_transaction_by_txid("0x5d5396c3992ed524bf68a22a7ab6ae503f034")
+        self.assertTrue(response.success)
+
     def test_get_transactions_by_id(self):
         response = self.client.get_transactions_by_id()
         self.assertTrue(response.success)

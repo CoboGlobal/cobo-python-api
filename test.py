@@ -86,8 +86,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_batch_new_valid_deposit_address(self, coin, native_segwit, count):
-        response = self.client.batch_new_deposit_address(coin=coin,native_segwit=native_segwit, count=count)
-        print(response)
+        response = self.client.batch_new_deposit_address(coin=coin, native_segwit=native_segwit, count=count)
         self.assertTrue(response.success)
 
     @parameterized.expand(
@@ -226,11 +225,11 @@ class ClientTest(unittest.TestCase):
             self.assertTrue(address_info["is_internal_address"])
 
     def test_get_transaction_details(self):
-        response = self.client.get_transaction_details(self.TEST_DATA["tx_id"])
+        response = self.client.get_transaction_details(self.TEST_DATA["cobo_id"])
         self.assertTrue(response.success)
 
     def test_get_transaction_by_txid(self):
-        response = self.client.get_transaction_by_txid("0x5d5396c3992ed524bf68a22a7ab6ae503f034")
+        response = self.client.get_transaction_by_txid(self.TEST_DATA["tx_id"])
         self.assertTrue(response.success)
 
     def test_get_transactions_by_id(self):

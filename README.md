@@ -55,7 +55,7 @@ pip install cobo_custody
 ## Test
 
 ```
-python -m unittest test.ClientTest
+python test.py --env sandbox/prod --secret <yourApiSecret>
 ```
 
 ## Usage

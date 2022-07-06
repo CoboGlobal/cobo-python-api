@@ -188,7 +188,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_get_invalid_address_history(self, coin):
-        response = self.client.get_address_history(coin=coin)
+        response = self.client.get_address_history(coin=coin, page_index=0, page_length=10)
         self.assertFalse(response.success)
         # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)

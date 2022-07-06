@@ -122,7 +122,7 @@ class Client(object):
     def verify_valid_address(self, coin: str, address: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/is_valid_address/", {"coin": coin, "address": address})
 
-    def get_address_history(self, coin: str, page_index: int, page_length: int) -> ApiResponse:
+    def get_address_history(self, coin: str, page_index=None, page_length=None) -> ApiResponse:
         return self.request("GET", "/v1/custody/address_history/", {
             "coin": coin, "page_index": page_index, "page_length": page_length})
 

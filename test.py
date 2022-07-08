@@ -178,7 +178,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_get_valid_address_history(self, coin):
-        response = self.client.get_address_history(coin=coin)
+        response = self.client.get_address_history(coin=coin, page_index=0, page_length=10)
         self.assertTrue(response.success)
         self.assertTrue(len(response.result) > 0)
 

@@ -193,6 +193,27 @@ class ClientTest(unittest.TestCase):
         # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)
 
+    @parameterized.expand(
+        [
+            param(coin="BTC", page_index=0, page_length=10),
+        ]
+    )
+    def test_get_invalid_address_history_with_valid_page(self, coin, page_index, page_length):
+        response = self.client.get_address_history(coin=coin, page_index=page_index, page_length=page_length)
+        self.assertTrue(response.success)
+        self.assertTrue(len(response.result) > 0)
+
+    @parameterized.expand(
+        [
+            param(coin="BTC", page_index=0, page_length=51),
+            param(coin="BTC", page_index=0, page_length=0),
+        ]
+    )
+    def test_get_invalid_address_history_with_invalid_page(self, coin, page_index, page_length):
+        response = self.client.get_address_history(coin=coin, page_index=page_index, page_length=page_length)
+        self.assertFalse(response.success)
+        # Coin BTTB not supported, please add it on admin web.
+        self.assertEqual(response.exception.errorCode, 1011)
 
     @parameterized.expand(
         [

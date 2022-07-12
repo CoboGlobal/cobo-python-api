@@ -20,7 +20,7 @@ class ClientTest(unittest.TestCase):
     def setUp(self):
         self.client = Client(signer=LocalSigner(self.api_secret),
                              env=self.ENV,
-                             debug=False)
+                             debug=True)
 
     # account and address
     def test_get_account_info(self):
@@ -178,7 +178,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_get_valid_address_history(self, coin):
-        response = self.client.get_address_history(coin=coin, page_index=0, page_length=10)
+        response = self.client.get_address_history(coin=coin)
         self.assertTrue(response.success)
         self.assertTrue(len(response.result) > 0)
 
@@ -188,7 +188,7 @@ class ClientTest(unittest.TestCase):
         ]
     )
     def test_get_invalid_address_history(self, coin):
-        response = self.client.get_address_history(coin=coin, page_index=0, page_length=10)
+        response = self.client.get_address_history(coin=coin)
         self.assertFalse(response.success)
         # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)

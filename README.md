@@ -190,7 +190,8 @@ client.verify_valid_address("ETH", "0x05325e6f9d1f0437bd78a72c2ae084fbb8c039ee")
 
 #### Get Address History List
 ```python
-client.get_address_history("ETH",0, 10)
+from cobo_custody.model.enums import SortFlagEnum
+client.get_address_history("ETH",0, 10, sort_flag=SortFlagEnum.DESCENDING)
 ```
 <details>
 <summary>View Response</summary>

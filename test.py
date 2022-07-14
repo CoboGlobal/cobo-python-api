@@ -5,6 +5,7 @@ from cobo_custody.config import PROD_TEST_DATA
 
 import unittest
 from cobo_custody.client import Client
+from cobo_custody.model.enums import SortFlagEnum
 from cobo_custody.signer.local_signer import LocalSigner
 from parameterized import param, parameterized
 import sys
@@ -214,6 +215,17 @@ class ClientTest(unittest.TestCase):
         self.assertFalse(response.success)
         # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 1011)
+
+    @parameterized.expand(
+        [
+            param(coin="BTC", page_index=0, page_length=10, sort_flag=SortFlagEnum.ASCENDING),
+        ]
+    )
+    def test_get_address_history_with_sort(self, coin, page_index, page_length, sort_flag):
+        response = self.client.get_address_history(
+            coin=coin, page_index=page_index, page_length=page_length, sort_flag=sort_flag)
+        self.assertTrue(response.success)
+        self.assertTrue(len(response.result) > 0)
 
     @parameterized.expand(
         [

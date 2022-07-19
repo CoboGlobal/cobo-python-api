@@ -10,6 +10,7 @@ from cobo_custody.config import Env
 from cobo_custody.error.api_error import ApiError
 from cobo_custody.signer.api_signer import ApiSigner
 from cobo_custody.signer.local_signer import verify_ecdsa_signature
+from cobo_custody.model.enums import SortFlagEnum
 
 
 class Client(object):
@@ -122,9 +123,9 @@ class Client(object):
     def verify_valid_address(self, coin: str, address: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/is_valid_address/", {"coin": coin, "address": address})
 
-    def get_address_history(self, coin: str, page_index=None, page_length=None) -> ApiResponse:
+    def get_address_history(self, coin: str, page_index=None, page_length=None, sort_flag=SortFlagEnum.DESCENDING) -> ApiResponse:
         return self.request("GET", "/v1/custody/address_history/", {
-            "coin": coin, "page_index": page_index, "page_length": page_length})
+            "coin": coin, "page_index": page_index, "page_length": page_length, "sort_flag": sort_flag.value})
 
     # loop alliance
     def check_loop_address_details(self, coin: str, address: str, memo: str = None) -> ApiResponse:

@@ -149,7 +149,6 @@ class Client(object):
     def get_transaction_by_txid(self, txid: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/transaction_by_txid/", {"txid": txid})
 
-
     def get_transactions_by_id(self, coin: str = None, side: str = None, address: str = None,
                                max_id: str = None, min_id: str = None, limit: str = None,
                                include_financial: str = None) -> ApiResponse:
@@ -249,3 +248,89 @@ class Client(object):
 
     def get_staking_history(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/staking_history/", {})
+
+    def batch_web3_new_address(self, chain_code: str, count: int) -> ApiResponse:
+        params = {
+            "chain_code": chain_code,
+            "count": count,
+        }
+        return self.request("POST", "/v1/custody/web3_add_addresses/", params)
+
+    def get_web3_address_list(self, chain_code: str, page_index: int, page_length: int,
+                              sort_flag: int = 0) -> ApiResponse:
+        params = {
+            "chain_code": chain_code,
+            "page_index": page_index,
+            "page_length": page_length,
+            "sort_flag": sort_flag
+        }
+        return self.request("GET", "/v1/custody/web3_list_wallet_address/", params)
+
+    def get_web3_wallet_asset_list(self, address: str = None, chain_code: str = None) -> ApiResponse:
+        params = {
+            "address": address,
+            "chain_code": chain_code,
+        }
+        return self.request("GET", "/v1/custody/web3_list_wallet_assets/", params)
+
+    def get_web3_wallet_nft_list(self, nft_code: str, address: str = None) -> ApiResponse:
+        params = {
+            "nft_code": nft_code,
+            "address": address,
+        }
+        return self.request("GET", "/v1/custody/web3_list_wallet_nfts/", params)
+
+    def get_web3_wallet_nft_details(self, nft_code: str, token_id: str) -> ApiResponse:
+        params = {
+            "nft_code": nft_code,
+            "token_id": token_id,
+        }
+        return self.request("GET", "/v1/custody/web3_wallet_nft_details/", params)
+
+    def get_web3_supported_chains(self):
+        params = {}
+        return self.request("GET", "/v1/custody/web3_supported_chains/", params)
+
+    def get_web3_supported_coins(self, chain_code: str):
+        params = {"chain_code": chain_code}
+        return self.request("GET", "/v1/custody/web3_supported_coins/", params)
+
+    def get_web3_supported_nft_collections(self):
+        params = {}
+        return self.request("GET", "/v1/custody/web3_supported_nft_collections/", params)
+
+    def get_web3_supported_contracts(self, chain_code: str):
+        params = {"chain_code": chain_code}
+        return self.request("GET", "/v1/custody/web3_supported_contracts/", params)
+
+    def get_web3_supported_contract_methods(self, chain_code: str, contract_address: str):
+        params = {"chain_code": chain_code, "contract_address": contract_address}
+        return self.request("GET", "/v1/custody/web3_supported_contract_methods/", params)
+
+    def web3_withdraw(self, coin: str, request_id: str, from_addr: str, to_addr: str, amount: int):
+        params = {"coin": coin, "request_id": request_id, "from_addr": from_addr, "to_addr": to_addr, "amount": amount}
+        return self.request("POST", "/v1/custody/web3_withdraw/", params)
+
+    def get_web3_withdraw_transaction(self, request_id: str):
+        params = {"request_id": request_id}
+        return self.request("GET", "/v1/custody/web3_get_withdraw_transaction/", params)
+
+    def web3_contract(self, chain_code: str, request_id: str, wallet_addr: str, contract_addr: str, method_id: str,
+                      method_name: str, args: str, amount: int = 0):
+        params = {"chain_code": chain_code,
+                  "request_id": request_id,
+                  "wallet_addr": wallet_addr,
+                  "contract_addr": contract_addr,
+                  "method_id": method_id,
+                  "method_name": method_name,
+                  "args": args,
+                  "amount": amount, }
+        return self.request("POST", "/v1/custody/web3_contract/", params)
+
+    def get_web3_contract_transaction(self, request_id: str):
+        params = {"request_id": request_id}
+        return self.request("GET", "/v1/custody/web3_get_contract_transaction/", params)
+
+    def list_web3_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None, limit: int = 50):
+        params = {"address": address, "coin": coin, "max_id": max_id, "min_id": min_id, "limit": limit}
+        return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)

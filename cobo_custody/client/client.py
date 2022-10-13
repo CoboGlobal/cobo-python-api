@@ -280,12 +280,12 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/web3_list_wallet_nfts/", params)
 
-    def get_web3_wallet_nft_details(self, nft_code: str, token_id: str) -> ApiResponse:
+    def get_web3_wallet_nft_detail(self, nft_code: str, token_id: str) -> ApiResponse:
         params = {
             "nft_code": nft_code,
             "token_id": token_id,
         }
-        return self.request("GET", "/v1/custody/web3_wallet_nft_details/", params)
+        return self.request("GET", "/v1/custody/web3_wallet_nft_detail/", params)
 
     def get_web3_supported_chains(self):
         params = {}

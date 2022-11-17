@@ -376,8 +376,8 @@ class Client(object):
             "amount": amount}
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
-    def get_mpc_transaction(self, request_id: str):
-        params = {"request_id": request_id}
+    def get_mpc_transaction(self, id: str = None, request_id: str = None, tx_id: str = None):
+        params = {"id": id, "request_id": request_id, "tx_id": tx_id}
         return self.request("GET", "/v1/custody/mpc/transaction_info/", params)
 
     def list_mpc_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None, limit: int = 50):

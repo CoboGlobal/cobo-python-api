@@ -343,12 +343,12 @@ class Client(object):
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_supported_coins/", params)
 
-    def batch_add_mpc_address(self, chain_code: str, count: int) -> ApiResponse:
+    def mpc_batch_generate_new_addresses(self, chain_code: str, count: int) -> ApiResponse:
         params = {
             "chain_code": chain_code,
             "count": count,
         }
-        return self.request("POST", "/v1/custody/mpc/add_addresses/", params)
+        return self.request("POST", "/v1/custody/mpc/generate_new_addresses/", params)
 
     def get_mpc_address_list(self, chain_code: str, page_index: int, page_length: int,
                               sort_flag: int = 0) -> ApiResponse:

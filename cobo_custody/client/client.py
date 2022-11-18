@@ -335,6 +335,10 @@ class Client(object):
         params = {"address": address, "coin": coin, "max_id": max_id, "min_id": min_id, "limit": limit}
         return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)
 
+    def get_org_info(self):
+        params = {}
+        return self.request("GET", "/v1/custody/mpc/org_info/", params)
+
     def get_mpc_supported_chains(self):
         params = {}
         return self.request("GET", "/v1/custody/mpc/get_supported_chains/", params)

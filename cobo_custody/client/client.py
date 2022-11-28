@@ -123,7 +123,8 @@ class Client(object):
     def verify_valid_address(self, coin: str, address: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/is_valid_address/", {"coin": coin, "address": address})
 
-    def get_address_history(self, coin: str, page_index=None, page_length=None, sort_flag=SortFlagEnum.DESCENDING) -> ApiResponse:
+    def get_address_history(self, coin: str, page_index=None, page_length=None,
+                            sort_flag=SortFlagEnum.DESCENDING) -> ApiResponse:
         return self.request("GET", "/v1/custody/address_history/", {
             "coin": coin, "page_index": page_index, "page_length": page_length, "sort_flag": sort_flag.value})
 
@@ -331,7 +332,8 @@ class Client(object):
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/web3_get_contract_transaction/", params)
 
-    def list_web3_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None, limit: int = 50):
+    def list_web3_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None,
+                                      limit: int = 50):
         params = {"address": address, "coin": coin, "max_id": max_id, "min_id": min_id, "limit": limit}
         return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)
 
@@ -347,15 +349,19 @@ class Client(object):
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_supported_coins/", params)
 
-    def mpc_batch_generate_new_addresses(self, chain_code: str, count: int) -> ApiResponse:
+    def get_mpc_main_address(self, chain_code: str):
+        params = {"chain_code": chain_code}
+        return self.request("GET", "/v1/custody/mpc/get_main_address/", params)
+
+    def mpc_batch_generate_addresses(self, chain_code: str, count: int) -> ApiResponse:
         params = {
             "chain_code": chain_code,
             "count": count,
         }
-        return self.request("POST", "/v1/custody/mpc/generate_new_addresses/", params)
+        return self.request("POST", "/v1/custody/mpc/generate_addresses/", params)
 
     def get_mpc_address_list(self, chain_code: str, page_index: int, page_length: int,
-                              sort_flag: int = 0) -> ApiResponse:
+                             sort_flag: int = 0) -> ApiResponse:
         params = {
             "chain_code": chain_code,
             "page_index": page_index,
@@ -364,30 +370,71 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_addresses/", params)
 
-    def get_mpc_asset_list(self, address: str = None, chain_code: str = None) -> ApiResponse:
+    def get_mpc_asset_list(self, address: str, chain_code: str = None) -> ApiResponse:
         params = {
             "address": address,
             "chain_code": chain_code,
         }
         return self.request("GET", "/v1/custody/mpc/list_assets/", params)
 
-    def mpc_create_transaction(self, coin: str, request_id: str, from_addr: str, to_addr: str, amount: int):
+    def get_mpc_unspent_inputs_list(self, address: str, chain_code: str) -> ApiResponse:
+        params = {
+            "address": address,
+            "chain_code": chain_code,
+        }
+        return self.request("GET", "/v1/custody/mpc/list_unspent_inputs/", params)
+
+    def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None,
+                               to_addr: str = None, to_address_details: str = None, fee: int = None,
+                               gas_price: int = None, gas_limit: int = None, extra_parameters: str = None,
+                               replace_tx_by_hash: str = None):
         params = {
             "coin": coin,
             "request_id": request_id,
             "from_address": from_addr,
             "to_address": to_addr,
-            "amount": amount}
+            "amount": amount,
+            "to_address_details": to_address_details,
+            "fee": fee,
+            "gas_price": gas_price,
+            "gas_limit": gas_limit,
+            "extra_parameters": extra_parameters,
+            "replace_tx_by_hash": replace_tx_by_hash,
+        }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
-    def get_mpc_transaction(self, request_id: str):
-        params = {"request_id": request_id}
-        return self.request("GET", "/v1/custody/mpc/transaction_info/", params)
+    def mpc_drop_transaction(self, cobo_id: str, gas_price: int, gas_limit: int):
+        params = {
+            "cobo_id": cobo_id,
+            "gas_price": gas_price,
+            "gas_limit": gas_limit,
+        }
+        return self.request("POST", "/v1/custody/mpc/drop_transaction/", params)
 
-    def get_mpc_transaction_by_tx_id(self, tx_id: str):
-        params = {"tx_id": tx_id}
-        return self.request("GET", "/v1/custody/mpc/transaction_info_by_tx_id/", params)
+    def get_mpc_transactions_by_request_ids(self, request_ids: str, status: int = None):
+        params = {"request_ids": request_ids, "status": status}
+        return self.request("GET", "/v1/custody/mpc/transactions_by_request_ids/", params)
 
-    def list_mpc_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None, limit: int = 50):
-        params = {"address": address, "coin": coin, "max_id": max_id, "min_id": min_id, "limit": limit}
+    def get_mpc_transactions_by_cobo_ids(self, cobo_ids: str, status: int = None):
+        params = {"cobo_ids": cobo_ids, "status": status}
+        return self.request("GET", "/v1/custody/mpc/transactions_by_cobo_ids/", params)
+
+    def get_mpc_transactions_by_tx_hash(self, tx_hash: str):
+        params = {"tx_hash": tx_hash}
+        return self.request("GET", "/v1/custody/mpc/transactions_by_tx_hash/", params)
+
+    def list_mpc_wallet_transactions(self, start_time: int = None, end_time: int = None, status: int = None,
+                                     order: str = None, transaction_type: str = None, coins: str = None,
+                                     from_address: str = None, to_address: str = None, limit: int = 50):
+        params = {
+            "start_time": start_time,
+            "end_time": end_time,
+            "status": status,
+            "order": order,
+            "transaction_type": transaction_type,
+            "coins": coins,
+            "from_address": from_address,
+            "to_address": to_address,
+            "limit": limit
+        }
         return self.request("GET", "/v1/custody/mpc/list_transactions/", params)

@@ -126,36 +126,36 @@ class Web3Client(object):
         }
         return self.request("GET", "/v1/custody/web3_wallet_nft_detail/", params)
 
-    def get_web3_supported_chains(self):
+    def get_web3_supported_chains(self) -> ApiResponse:
         params = {}
         return self.request("GET", "/v1/custody/web3_supported_chains/", params)
 
-    def get_web3_supported_coins(self, chain_code: str):
+    def get_web3_supported_coins(self, chain_code: str) -> ApiResponse:
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/web3_supported_coins/", params)
 
-    def get_web3_supported_nft_collections(self):
+    def get_web3_supported_nft_collections(self) -> ApiResponse:
         params = {}
         return self.request("GET", "/v1/custody/web3_supported_nft_collections/", params)
 
-    def get_web3_supported_contracts(self, chain_code: str):
+    def get_web3_supported_contracts(self, chain_code: str) -> ApiResponse:
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/web3_supported_contracts/", params)
 
-    def get_web3_supported_contract_methods(self, chain_code: str, contract_address: str):
+    def get_web3_supported_contract_methods(self, chain_code: str, contract_address: str) -> ApiResponse:
         params = {"chain_code": chain_code, "contract_address": contract_address}
         return self.request("GET", "/v1/custody/web3_supported_contract_methods/", params)
 
-    def web3_withdraw(self, coin: str, request_id: str, from_addr: str, to_addr: str, amount: int):
+    def web3_withdraw(self, coin: str, request_id: str, from_addr: str, to_addr: str, amount: int) -> ApiResponse:
         params = {"coin": coin, "request_id": request_id, "from_addr": from_addr, "to_addr": to_addr, "amount": amount}
         return self.request("POST", "/v1/custody/web3_withdraw/", params)
 
-    def get_web3_withdraw_transaction(self, request_id: str):
+    def get_web3_withdraw_transaction(self, request_id: str) -> ApiResponse:
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/web3_get_withdraw_transaction/", params)
 
     def web3_contract(self, chain_code: str, request_id: str, wallet_addr: str, contract_addr: str, method_id: str,
-                      method_name: str, args: str, amount: int = 0):
+                      method_name: str, args: str, amount: int = 0) -> ApiResponse:
         params = {"chain_code": chain_code,
                   "request_id": request_id,
                   "wallet_addr": wallet_addr,
@@ -166,11 +166,11 @@ class Web3Client(object):
                   "amount": amount, }
         return self.request("POST", "/v1/custody/web3_contract/", params)
 
-    def get_web3_contract_transaction(self, request_id: str):
+    def get_web3_contract_transaction(self, request_id: str) -> ApiResponse:
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/web3_get_contract_transaction/", params)
 
     def list_web3_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None,
-                                      limit: int = 50):
+                                      limit: int = 50) -> ApiResponse:
         params = {"address": address, "coin": coin, "max_id": max_id, "min_id": min_id, "limit": limit}
         return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)

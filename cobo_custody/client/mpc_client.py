@@ -89,7 +89,7 @@ class MPCClient(object):
             exception = ApiError(result['error_code'], result['error_message'], result['error_id'])
             return ApiResponse(False, None, exception)
 
-    def get_org_info(self):
+    def get_org_info(self) -> ApiResponse:
         params = {}
         return self.request("GET", "/v1/custody/mpc/org_info/", params)
 
@@ -97,11 +97,11 @@ class MPCClient(object):
         params = {}
         return self.request("GET", "/v1/custody/mpc/get_supported_chains/", params)
 
-    def get_mpc_supported_coins(self, chain_code: str):
+    def get_mpc_supported_coins(self, chain_code: str) -> ApiResponse:
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_supported_coins/", params)
 
-    def get_mpc_main_address(self, chain_code: str):
+    def get_mpc_main_address(self, chain_code: str) -> ApiResponse:
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_main_address/", params)
 
@@ -139,7 +139,7 @@ class MPCClient(object):
     def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None,
                                to_addr: str = None, to_address_details: str = None, fee: int = None,
                                gas_price: int = None, gas_limit: int = None, extra_parameters: str = None,
-                               replace_tx_by_hash: str = None):
+                               replace_tx_by_hash: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "request_id": request_id,
@@ -155,7 +155,7 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
-    def mpc_drop_transaction(self, cobo_id: str, gas_price: int, gas_limit: int):
+    def mpc_drop_transaction(self, cobo_id: str, gas_price: int, gas_limit: int) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
             "gas_price": gas_price,
@@ -163,21 +163,21 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/drop_transaction/", params)
 
-    def get_mpc_transactions_by_request_ids(self, request_ids: str, status: int = None):
+    def get_mpc_transactions_by_request_ids(self, request_ids: str, status: int = None) -> ApiResponse:
         params = {"request_ids": request_ids, "status": status}
         return self.request("GET", "/v1/custody/mpc/transactions_by_request_ids/", params)
 
-    def get_mpc_transactions_by_cobo_ids(self, cobo_ids: str, status: int = None):
+    def get_mpc_transactions_by_cobo_ids(self, cobo_ids: str, status: int = None) -> ApiResponse:
         params = {"cobo_ids": cobo_ids, "status": status}
         return self.request("GET", "/v1/custody/mpc/transactions_by_cobo_ids/", params)
 
-    def get_mpc_transactions_by_tx_hash(self, tx_hash: str, transaction_type: int = None):
+    def get_mpc_transactions_by_tx_hash(self, tx_hash: str, transaction_type: int = None) -> ApiResponse:
         params = {"tx_hash": tx_hash, "transaction_type": transaction_type}
         return self.request("GET", "/v1/custody/mpc/transactions_by_tx_hash/", params)
 
     def list_mpc_wallet_transactions(self, start_time: int = None, end_time: int = None, status: int = None,
                                      order: str = None, transaction_type: int = None, coins: str = None,
-                                     from_address: str = None, to_address: str = None, limit: int = 50):
+                                     from_address: str = None, to_address: str = None, limit: int = 50) -> ApiResponse:
         params = {
             "start_time": start_time,
             "end_time": end_time,

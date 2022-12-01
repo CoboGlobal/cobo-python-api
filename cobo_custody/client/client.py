@@ -194,7 +194,7 @@ class Client(object):
 
     def get_transaction_history(self, coin: str = None, side: str = None, address: str = None, max_id: str = None,
                                 min_id: str = None, limit: str = None,
-                                begin_time: str = None, end_time: str = None, include_financial: str = None):
+                                begin_time: str = None, end_time: str = None, include_financial: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "side": side,

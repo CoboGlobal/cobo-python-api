@@ -89,10 +89,6 @@ class MPCClient(object):
             exception = ApiError(result['error_code'], result['error_message'], result['error_id'])
             return ApiResponse(False, None, exception)
 
-    def get_org_info(self) -> ApiResponse:
-        params = {}
-        return self.request("GET", "/v1/custody/mpc/org_info/", params)
-
     def get_mpc_supported_chains(self):
         params = {}
         return self.request("GET", "/v1/custody/mpc/get_supported_chains/", params)

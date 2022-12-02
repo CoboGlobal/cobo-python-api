@@ -192,3 +192,11 @@ class MPCClient(object):
             "limit": limit
         }
         return self.request("GET", "/v1/custody/mpc/list_transactions/", params)
+
+    def estimate_mpc_fee(self, coin: str, amount: int, address: str) -> ApiResponse:
+        params = {"coin": coin, "amount": amount, "address": address}
+        return self.request("GET", "/v1/custody/mpc/estimate_fee/", params)
+
+    def list_mpc_tss_node_requests(self, request_type: int, status: int) -> ApiResponse:
+        params = {"request_type": request_type, "status": status}
+        return self.request("GET", "/v1/custody/mpc/list_requests/", params)

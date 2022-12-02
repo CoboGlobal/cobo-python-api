@@ -129,17 +129,16 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_assets/", params)
 
-    def get_mpc_unspent_inputs_list(self, address: str, chain_code: str) -> ApiResponse:
+    def get_mpc_unspent_inputs_list(self, address: str, coin: str) -> ApiResponse:
         params = {
             "address": address,
-            "chain_code": chain_code,
+            "coin": coin,
         }
         return self.request("GET", "/v1/custody/mpc/list_unspent_inputs/", params)
 
-    def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None,
-                               to_addr: str = None, to_address_details: str = None, fee: int = None,
-                               gas_price: int = None, gas_limit: int = None, extra_parameters: str = None,
-                               replace_tx_by_hash: str = None) -> ApiResponse:
+    def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None, to_addr: str = None,
+                               to_address_details: str = None, fee: int = None, gas_price: int = None,
+                               gas_limit: int = None, extra_parameters: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "request_id": request_id,
@@ -151,7 +150,6 @@ class MPCClient(object):
             "gas_price": gas_price,
             "gas_limit": gas_limit,
             "extra_parameters": extra_parameters,
-            "replace_tx_by_hash": replace_tx_by_hash,
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
@@ -162,6 +160,14 @@ class MPCClient(object):
             "gas_limit": gas_limit,
         }
         return self.request("POST", "/v1/custody/mpc/drop_transaction/", params)
+
+    def mpc_speedup_transaction(self, cobo_id: str, gas_price: int, gas_limit: int) -> ApiResponse:
+        params = {
+            "cobo_id": cobo_id,
+            "gas_price": gas_price,
+            "gas_limit": gas_limit,
+        }
+        return self.request("POST", "/v1/custody/mpc/speedup_transaction/", params)
 
     def get_mpc_transactions_by_request_ids(self, request_ids: str, status: int = None) -> ApiResponse:
         params = {"request_ids": request_ids, "status": status}

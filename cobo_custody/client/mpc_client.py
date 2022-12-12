@@ -108,31 +108,34 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/generate_addresses/", params)
 
-    def get_mpc_address_list(self, chain_code: str, page_index: int, page_length: int,
-                             sort_flag: int = 0) -> ApiResponse:
+    def get_mpc_address_list(self, chain_code: str, start_id: str, end_id: str, limit: int = None,
+                             sort: int = 0) -> ApiResponse:
         params = {
             "chain_code": chain_code,
-            "page_index": page_index,
-            "page_length": page_length,
-            "sort_flag": sort_flag
+            "start_id": start_id,
+            "end_id": end_id,
+            "limit": limit,
+            "sort": sort
         }
         return self.request("GET", "/v1/custody/mpc/list_addresses/", params)
 
-    def get_mpc_asset_list(self, address: str, chain_code: str = None) -> ApiResponse:
+    def get_mpc_balance(self, address: str, chain_code: str = None, coin: str = None) -> ApiResponse:
         params = {
             "address": address,
             "chain_code": chain_code,
-        }
-        return self.request("GET", "/v1/custody/mpc/list_assets/", params)
-
-    def get_mpc_unspent_inputs_list(self, address: str, coin: str) -> ApiResponse:
-        params = {
-            "address": address,
             "coin": coin,
         }
-        return self.request("GET", "/v1/custody/mpc/list_unspent_inputs/", params)
+        return self.request("GET", "/v1/custody/mpc/get_balance/", params)
 
-    def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None, to_addr: str = None,
+    def get_mpc_spendable_list(self, coin: str, address: str = None) -> ApiResponse:
+        params = {
+            "coin": coin,
+            "address": address,
+        }
+        return self.request("GET", "/v1/custody/mpc/list_spendable/", params)
+
+    def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None,
+                               to_addr: str = None,
                                to_address_details: str = None, fee: int = None, gas_price: int = None,
                                gas_limit: int = None, extra_parameters: str = None) -> ApiResponse:
         params = {
@@ -149,17 +152,21 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
-    def mpc_drop_transaction(self, cobo_id: str, gas_price: int, gas_limit: int) -> ApiResponse:
+    def mpc_drop_transaction(self, cobo_id: str, fee: int = None, gas_price: int = None,
+                             gas_limit: int = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
+            "fee": fee,
             "gas_price": gas_price,
             "gas_limit": gas_limit,
         }
         return self.request("POST", "/v1/custody/mpc/drop_transaction/", params)
 
-    def mpc_speedup_transaction(self, cobo_id: str, gas_price: int, gas_limit: int) -> ApiResponse:
+    def mpc_speedup_transaction(self, cobo_id: str, fee: int = None, gas_price: int = None,
+                                gas_limit: int = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
+            "fee": fee,
             "gas_price": gas_price,
             "gas_limit": gas_limit,
         }
@@ -197,6 +204,6 @@ class MPCClient(object):
         params = {"coin": coin, "amount": amount, "address": address}
         return self.request("GET", "/v1/custody/mpc/estimate_fee/", params)
 
-    def list_mpc_tss_node_requests(self, request_type: int = None, status: int =None) -> ApiResponse:
+    def list_mpc_tss_node_requests(self, request_type: int = None, status: int = None) -> ApiResponse:
         params = {"request_type": request_type, "status": status}
-        return self.request("GET", "/v1/custody/mpc/list_requests/", params)
+        return self.request("GET", "/v1/custody/mpc/list_tss_node_requests/", params)

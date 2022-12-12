@@ -185,12 +185,13 @@ class MPCClient(object):
         return self.request("GET", "/v1/custody/mpc/transactions_by_tx_hash/", params)
 
     def list_mpc_wallet_transactions(self, start_time: int = None, end_time: int = None, status: int = None,
-                                     order: str = None, transaction_type: int = None, coins: str = None,
+                                     order_by: str = None, order: str = None, transaction_type: int = None, coins: str = None,
                                      from_address: str = None, to_address: str = None, limit: int = 50) -> ApiResponse:
         params = {
             "start_time": start_time,
             "end_time": end_time,
             "status": status,
+            "order_by": order_by,
             "order": order,
             "transaction_type": transaction_type,
             "coins": coins,

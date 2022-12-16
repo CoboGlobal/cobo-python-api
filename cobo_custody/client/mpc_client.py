@@ -141,14 +141,14 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_assets/", params)
 
-    def get_mpc_unspent_inputs_list(self, address: str, coin: str) -> ApiResponse:
+    def get_mpc_unspent_inputs_list(self, coin: str, address: str = None) -> ApiResponse:
         params = {
             "address": address,
             "coin": coin,
         }
-        return self.request("GET", "/v1/custody/mpc/list_unspent_inputs/", params)
+        return self.request("GET", "/v1/custody/mpc/list_spendable/", params)
 
-    def mpc_create_transaction(self, coin: str, request_id: str, amount: int, from_addr: str = None,
+    def mpc_create_transaction(self, coin: str, request_id: str, amount: str, from_addr: str = None,
                                to_addr: str = None,
                                to_address_details: str = None, fee: int = None, gas_price: int = None,
                                gas_limit: int = None, operation: int = None,
@@ -168,7 +168,7 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
-    def mpc_drop_transaction(self, cobo_id: str, gas_price: int, gas_limit: int = None, request_id: str = None,
+    def mpc_drop_transaction(self, cobo_id: str, request_id: str, gas_price: int, gas_limit: int = None,
                              fee: int = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
@@ -203,13 +203,14 @@ class MPCClient(object):
         return self.request("GET", "/v1/custody/mpc/transactions_by_tx_hash/", params)
 
     def list_mpc_wallet_transactions(self, start_time: int = None, end_time: int = None, status: int = None,
-                                     order: str = None, transaction_type: int = None, coins: str = None,
+                                     order: str = None, order_by: str = None, transaction_type: int = None, coins: str = None,
                                      from_address: str = None, to_address: str = None, limit: int = 50) -> ApiResponse:
         params = {
             "start_time": start_time,
             "end_time": end_time,
             "status": status,
             "order": order,
+            "order_by": order_by,
             "transaction_type": transaction_type,
             "coins": coins,
             "from_address": from_address,
@@ -224,4 +225,4 @@ class MPCClient(object):
 
     def list_mpc_tss_node_requests(self, request_type: int = None, status: int = None) -> ApiResponse:
         params = {"request_type": request_type, "status": status}
-        return self.request("GET", "/v1/custody/mpc/list_requests/", params)
+        return self.request("GET", "/v1/custody/mpc/list_tss_node_requests/", params)

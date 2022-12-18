@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.18] (2022-12-18)
+[0.18]: https://github.com/CoboCustody/cobo-python-api/compare/0.17...0.18
+
+### Changed
+- Update MPC wallet Saas api.https://github.com/CoboCustody/cobo-python-api/pull/17, https://github.com/CoboCustody/cobo-python-api/pull/18, https://github.com/CoboCustody/cobo-python-api/pull/20, https://github.com/CoboCustody/cobo-python-api/pull/21
+
+
 ## [0.17] (2022-12-02)
 [0.17]: https://github.com/CoboCustody/cobo-python-api/compare/0.16...0.17
 

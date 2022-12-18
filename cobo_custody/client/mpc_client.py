@@ -134,13 +134,6 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_balances/", params)
 
-    def get_mpc_asset_list(self, address: str, chain_code: str = None) -> ApiResponse:
-        params = {
-            "address": address,
-            "chain_code": chain_code,
-        }
-        return self.request("GET", "/v1/custody/mpc/list_assets/", params)
-
     def get_mpc_unspent_inputs_list(self, coin: str, address: str = None) -> ApiResponse:
         params = {
             "address": address,

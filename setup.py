@@ -12,6 +12,6 @@ setup(
     url="https://github.com/CoboCustody/cobo-python-api",
     packages=['cobo_custody', 'cobo_custody.model','cobo_custody.signer', 'cobo_custody.client', 'cobo_custody.error', 'cobo_custody.config'],
     include_package_data=True,
-    install_requires=["ecdsa==0.17.0", "requests"]
+    install_requires=["ecdsa==0.18.0", "requests"]
     # zip_safe=False,
 )

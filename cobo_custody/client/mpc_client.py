@@ -96,6 +96,10 @@ class MPCClient(object):
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_supported_coins/", params)
 
+    def is_valid_address(self, coin: str, address: str) -> ApiResponse:
+        params = {"coin": coin, "address": address}
+        return self.request("GET", "/v1/custody/mpc/is_valid_address/", params)
+
     def get_main_address(self, chain_code: str) -> ApiResponse:
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_main_address/", params)

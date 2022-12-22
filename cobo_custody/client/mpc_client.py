@@ -183,15 +183,15 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/speedup_transaction/", params)
 
-    def get_transactions_by_request_ids(self, request_ids: str, status: int = None) -> ApiResponse:
+    def transactions_by_request_ids(self, request_ids: str, status: int = None) -> ApiResponse:
         params = {"request_ids": request_ids, "status": status}
         return self.request("GET", "/v1/custody/mpc/transactions_by_request_ids/", params)
 
-    def get_transactions_by_cobo_ids(self, cobo_ids: str, status: int = None) -> ApiResponse:
+    def transactions_by_cobo_ids(self, cobo_ids: str, status: int = None) -> ApiResponse:
         params = {"cobo_ids": cobo_ids, "status": status}
         return self.request("GET", "/v1/custody/mpc/transactions_by_cobo_ids/", params)
 
-    def get_transactions_by_tx_hash(self, tx_hash: str, transaction_type: int = None) -> ApiResponse:
+    def transactions_by_tx_hash(self, tx_hash: str, transaction_type: int = None) -> ApiResponse:
         params = {"tx_hash": tx_hash, "transaction_type": transaction_type}
         return self.request("GET", "/v1/custody/mpc/transactions_by_tx_hash/", params)
 

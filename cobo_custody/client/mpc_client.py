@@ -100,14 +100,14 @@ class MPCClient(object):
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_main_address/", params)
 
-    def batch_generate_addresses(self, chain_code: str, count: int) -> ApiResponse:
+    def generate_addresses(self, chain_code: str, count: int) -> ApiResponse:
         params = {
             "chain_code": chain_code,
             "count": count,
         }
         return self.request("POST", "/v1/custody/mpc/generate_addresses/", params)
 
-    def get_address_list(self, chain_code: str, start_id: str = None, end_id: str = None, limit: int = None,
+    def list_addresses(self, chain_code: str, start_id: str = None, end_id: str = None, limit: int = None,
                          sort: int = None) -> ApiResponse:
         params = {
             "chain_code": chain_code,
@@ -134,7 +134,7 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_balances/", params)
 
-    def get_unspent_inputs_list(self, coin: str, address: str = None) -> ApiResponse:
+    def list_spendable(self, coin: str, address: str = None) -> ApiResponse:
         params = {
             "address": address,
             "coin": coin,
@@ -195,7 +195,7 @@ class MPCClient(object):
         params = {"tx_hash": tx_hash, "transaction_type": transaction_type}
         return self.request("GET", "/v1/custody/mpc/transactions_by_tx_hash/", params)
 
-    def list_wallet_transactions(self, start_time: int = None, end_time: int = None, status: int = None,
+    def list_transactions(self, start_time: int = None, end_time: int = None, status: int = None,
                                  order: str = None, order_by: str = None, transaction_type: int = None,
                                  coins: str = None,
                                  from_address: str = None, to_address: str = None, limit: int = 50) -> ApiResponse:

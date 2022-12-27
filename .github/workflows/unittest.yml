@@ -40,6 +40,5 @@ jobs:
             SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
             Web3SECRET: "${{secrets.SANDBOXWEB3SECRET}}"
             MPCSECRET: "${{secrets.SANDBOXMPCSECRET}}"
-        run: python test.py --env $ENV --secret $SECRET -web3ApiSecret=$Web3SECRET -mpcApiSecret=$MPCSECRET
-
+        run: python test.py --env $ENV --secret $SECRET --web3ApiSecret $Web3SECRET --mpcApiSecret $MPCSECRET
 

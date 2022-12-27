@@ -13,6 +13,7 @@ import argparse
 import time
 from hashlib import sha256
 
+
 class ClientTest(unittest.TestCase):
     api_secret = "api_secret"
     ENV = SANDBOX_ENV

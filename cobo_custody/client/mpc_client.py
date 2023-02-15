@@ -145,7 +145,7 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_spendable/", params)
 
-    def create_transaction(self, coin: str, request_id: str, amount: str, from_addr: str = None,
+    def create_transaction(self, coin: str, request_id: str, amount: str = None, from_addr: str = None,
                            to_addr: str = None,
                            to_address_details: str = None, fee: int = None, gas_price: int = None,
                            gas_limit: int = None, operation: int = None,

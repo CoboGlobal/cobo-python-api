@@ -126,8 +126,8 @@ class Web3ClientTest(unittest.TestCase):
 
     def test_list_web3_wallet_transactions(self):
         address = "0xd2176409a1ac767824921e45b7ee300745cb1e3f"
-        coin = "GETH"
-        response = self.web3_client.list_web3_wallet_transactions(address=address, coin=coin)
+        chain_code = "GETH"
+        response = self.web3_client.list_web3_wallet_transactions(address=address, chain_code=chain_code)
         print(response)
         self.assertTrue(response.success)
 

@@ -171,7 +171,7 @@ class Web3Client(object):
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/web3_get_contract_transaction/", params)
 
-    def list_web3_wallet_transactions(self, address: str, coin: str = None, max_id: str = None, min_id: str = None,
+    def list_web3_wallet_transactions(self, address: str, chain_code: str = None, max_id: str = None, min_id: str = None,
                                       limit: int = 50) -> ApiResponse:
-        params = {"address": address, "coin": coin, "max_id": max_id, "min_id": min_id, "limit": limit}
+        params = {"address": address, "chain_code": chain_code, "max_id": max_id, "min_id": min_id, "limit": limit}
         return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)

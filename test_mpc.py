@@ -30,6 +30,11 @@ class MPCClientTest(unittest.TestCase):
         print(response)
         self.assertTrue(response.success)
 
+    def test_get_wallet_supported_coins(self):
+        response = self.mpc_client.get_wallet_supported_coins()
+        print(response)
+        self.assertTrue(response.success)
+
     def test_is_valid_address(self):
         coin = "GETH"
         address = "0x3ede1e59a3f3a66de4260df7ba3029b515337e5c"

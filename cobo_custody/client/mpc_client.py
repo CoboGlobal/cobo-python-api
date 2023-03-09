@@ -151,7 +151,7 @@ class MPCClient(object):
 
     def create_transaction(self, coin: str, request_id: str, amount: str, from_addr: str = None,
                            to_addr: str = None,
-                           to_address_details: str = None, fee: int = None, gas_price: int = None,
+                           to_address_details: str = None, fee: float = None, gas_price: int = None,
                            gas_limit: int = None, operation: int = None,
                            extra_parameters: str = None) -> ApiResponse:
         params = {
@@ -170,7 +170,7 @@ class MPCClient(object):
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 
     def drop_transaction(self, cobo_id: str, request_id: str, gas_price: int, gas_limit: int = None,
-                         fee: int = None) -> ApiResponse:
+                         fee: float = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
             "gas_price": gas_price,
@@ -181,7 +181,7 @@ class MPCClient(object):
         return self.request("POST", "/v1/custody/mpc/drop_transaction/", params)
 
     def speedup_transaction(self, cobo_id: str, request_id: str, gas_price: int = None, gas_limit: int = None,
-                            fee: int = None) -> ApiResponse:
+                            fee: float = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
             "gas_price": gas_price,

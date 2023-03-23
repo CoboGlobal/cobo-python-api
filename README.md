@@ -77,9 +77,9 @@ Please refer to the [link](https://doc.custody.cobo.com/en.html#api-authenticati
 
 ```python
 from cobo_custody.client import Client
-from cobo_custody.config import SANDBOX
+from cobo_custody.config import SANDBOX_ENV
 from cobo_custody.signer.local_signer import LocalSigner
-client = Client(signer=signer, env=SANDBOX, debug=True)
+client = Client(signer=signer, env=SANDBOX_ENV, debug=True)
 ```
 
 #### Initialize ApiSigner

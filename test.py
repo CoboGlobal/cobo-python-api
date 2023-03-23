@@ -49,7 +49,6 @@ class ClientTest(unittest.TestCase):
     def test_get_invalid_coin_info(self, coin):
         response = self.client.get_coin_info(coin)
         self.assertFalse(response.success)
-        # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)
 
     @parameterized.expand(
@@ -74,7 +73,6 @@ class ClientTest(unittest.TestCase):
     def test_new_invalid_deposit_address(self, coin, native_segwit):
         response = self.client.new_deposit_address(coin=coin, native_segwit=native_segwit)
         self.assertFalse(response.success)
-        # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)
 
 
@@ -100,7 +98,6 @@ class ClientTest(unittest.TestCase):
     def test_batch_new_invalid_deposit_address(self, coin, native_segwit, count):
         response = self.client.batch_new_deposit_address(coin=coin,native_segwit=native_segwit, count=count)
         self.assertFalse(response.success)
-        # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)
 
     @parameterized.expand(
@@ -192,7 +189,6 @@ class ClientTest(unittest.TestCase):
     def test_get_invalid_address_history(self, coin):
         response = self.client.get_address_history(coin=coin)
         self.assertFalse(response.success)
-        # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 12002)
 
     @parameterized.expand(
@@ -214,7 +210,6 @@ class ClientTest(unittest.TestCase):
     def test_get_invalid_address_history_with_invalid_page(self, coin, page_index, page_length):
         response = self.client.get_address_history(coin=coin, page_index=page_index, page_length=page_length)
         self.assertFalse(response.success)
-        # Coin BTTB not supported, please add it on admin web.
         self.assertEqual(response.exception.errorCode, 1011)
 
     @parameterized.expand(

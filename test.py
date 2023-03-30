@@ -291,6 +291,12 @@ class ClientTest(unittest.TestCase):
         else:
             self.skipTest("no pending transactions")
 
+    def test_get_transactions_by_request_ids(self):
+        request_ids = "web_send_by_user_1049_1677469364250,slp_uc_1559_1675822822477,web_send_by_user_1212_1678330749364"
+        response = self.client.get_transactions_by_request_ids(request_ids=request_ids)
+        print(response)
+        self.assertTrue(response.success)
+
     @parameterized.expand(
         [
             param(coin="COBO_ETH", address="0xE410157345be56688F43FF0D9e4B2B38Ea8F7828", memo=None, amount=1),

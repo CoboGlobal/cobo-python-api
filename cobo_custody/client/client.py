@@ -192,6 +192,9 @@ class Client(object):
     def get_pending_transaction(self, id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/pending_transaction/", {"id": id})
 
+    def get_transactions_by_request_ids(self, request_ids: str) -> ApiResponse:
+        return self.request("GET", "/v1/custody/transactions_by_request_ids/", {"request_ids": request_ids})
+
     def get_transaction_history(self, coin: str = None, side: str = None, address: str = None, max_id: str = None,
                                 min_id: str = None, limit: str = None,
                                 begin_time: str = None, end_time: str = None, include_financial: str = None) -> ApiResponse:

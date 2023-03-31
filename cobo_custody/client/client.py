@@ -1,6 +1,7 @@
 import json
 import time
 from hashlib import sha256
+from typing import Tuple
 from urllib.parse import urlencode
 
 import requests
@@ -40,7 +41,7 @@ class Client(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response: requests.Response) -> (bool, dict):
+    def verify_response(self, response: requests.Response) -> Tuple[bool, dict]:
         content = response.content.decode()
         success = True
         try:

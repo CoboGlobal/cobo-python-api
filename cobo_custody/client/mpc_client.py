@@ -138,9 +138,10 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/get_balance/", params)
 
-    def list_balances(self, page_index: int, page_length: int, coin: str = None) -> ApiResponse:
+    def list_balances(self, page_index: int, page_length: int, coin: str = None, chain_code: str = None) -> ApiResponse:
         params = {
             "coin": coin,
+            "chain_code": chain_code,
             "page_index": page_index,
             "page_length": page_length
         }

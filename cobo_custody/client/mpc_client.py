@@ -58,7 +58,7 @@ class MPCClient(object):
             params: dict
     ) -> ApiResponse:
         method = method.upper()
-        nonce = str(int(time.time() * 1000))
+        nonce = str(int(time.time() * 1000 * 1000))
         params = self.remove_none_value_elements(params)
         content = f"{method}|{path}|{nonce}|{self.sort_params(params)}"
         sign = self.api_signer.sign(content)

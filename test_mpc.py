@@ -64,9 +64,10 @@ class MPCClientTest(unittest.TestCase):
 
     def test_list_balances(self):
         coin = "GETH"
+        chain_code = "GETH"
         page_index = 0
         page_length = 50
-        response = self.mpc_client.list_balances(coin=coin, page_index=page_index, page_length=page_length)
+        response = self.mpc_client.list_balances(coin=coin, chain_code=chain_code, page_index=page_index, page_length=page_length)
         print(response)
         self.assertTrue(response.success)
 

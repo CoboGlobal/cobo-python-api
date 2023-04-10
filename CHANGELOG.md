@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.22] (2023-4-10)
+[0.22]: https://github.com/CoboCustody/cobo-python-api/compare/0.21...0.22
+### Changed
+- Update request nonce. https://github.com/CoboCustody/cobo-python-api/pull/37
+
 ## [0.21] (2023-3-13)
 [0.21]: https://github.com/CoboCustody/cobo-python-api/compare/0.20...0.21
 ### Changed

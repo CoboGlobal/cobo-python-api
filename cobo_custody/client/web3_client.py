@@ -1,5 +1,6 @@
 import json
 import time
+from typing import Tuple
 
 from urllib.parse import urlencode
 
@@ -38,7 +39,7 @@ class Web3Client(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response: requests.Response) -> (bool, dict):
+    def verify_response(self, response: requests.Response) -> Tuple[bool, dict]:
         content = response.content.decode()
         success = True
         try:
@@ -58,7 +59,7 @@ class Web3Client(object):
             params: dict
     ) -> ApiResponse:
         method = method.upper()
-        nonce = str(int(time.time() * 1000))
+        nonce = str(int(time.time() * 1000 * 1000))
         params = self.remove_none_value_elements(params)
         content = f"{method}|{path}|{nonce}|{self.sort_params(params)}"
         sign = self.api_signer.sign(content)
@@ -174,7 +175,8 @@ class Web3Client(object):
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/web3_get_contract_transaction/", params)
 
-    def list_web3_wallet_transactions(self, address: str, chain_code: str = None, max_id: str = None, min_id: str = None,
+    def list_web3_wallet_transactions(self, address: str, chain_code: str = None, max_id: str = None,
+                                      min_id: str = None,
                                       limit: int = 50) -> ApiResponse:
         params = {"address": address, "chain_code": chain_code, "max_id": max_id, "min_id": min_id, "limit": limit}
         return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)

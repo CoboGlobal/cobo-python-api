@@ -1,6 +1,7 @@
 import json
 import time
 from hashlib import sha256
+from typing import Tuple
 from urllib.parse import urlencode
 
 import requests
@@ -40,7 +41,7 @@ class Client(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response: requests.Response) -> (bool, dict):
+    def verify_response(self, response: requests.Response) -> Tuple[bool, dict]:
         content = response.content.decode()
         success = True
         try:
@@ -60,7 +61,7 @@ class Client(object):
             params: dict
     ) -> ApiResponse:
         method = method.upper()
-        nonce = str(int(time.time() * 1000))
+        nonce = str(int(time.time() * 1000 * 1000))
         params = self.remove_none_value_elements(params)
         content = f"{method}|{path}|{nonce}|{self.sort_params(params)}"
         sign = self.api_signer.sign(content)

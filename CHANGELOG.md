@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.23] (2023-4-12)
+[0.23]: https://github.com/CoboCustody/cobo-python-api/compare/0.22...0.23
+### Added
+- Add Get standard tx by request_ids. https://github.com/CoboCustody/cobo-python-api/pull/36
+
 ## [0.22] (2023-4-10)
 [0.22]: https://github.com/CoboCustody/cobo-python-api/compare/0.21...0.22
 ### Changed

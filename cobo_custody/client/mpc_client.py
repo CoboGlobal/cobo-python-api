@@ -1,5 +1,6 @@
 import json
 import time
+from typing import Tuple
 from urllib.parse import urlencode
 
 import requests
@@ -37,7 +38,7 @@ class MPCClient(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response: requests.Response) -> (bool, dict):
+    def verify_response(self, response: requests.Response) -> Tuple[bool, dict]:
         content = response.content.decode()
         success = True
         try:
@@ -57,7 +58,7 @@ class MPCClient(object):
             params: dict
     ) -> ApiResponse:
         method = method.upper()
-        nonce = str(int(time.time() * 1000))
+        nonce = str(int(time.time() * 1000 * 1000))
         params = self.remove_none_value_elements(params)
         content = f"{method}|{path}|{nonce}|{self.sort_params(params)}"
         sign = self.api_signer.sign(content)
@@ -149,7 +150,7 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_spendable/", params)
 
-    def create_transaction(self, coin: str, request_id: str, amount: str, from_addr: str = None,
+    def create_transaction(self, coin: str, request_id: str, amount: str = None, from_addr: str = None,
                            to_addr: str = None,
                            to_address_details: str = None, fee: float = None, gas_price: int = None,
                            gas_limit: int = None, operation: int = None,
@@ -221,7 +222,8 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_transactions/", params)
 
-    def estimate_fee(self, coin: str, amount: int = None, address: str = None, replace_cobo_id: str = None, from_address: str = None,
+    def estimate_fee(self, coin: str, amount: int = None, address: str = None, replace_cobo_id: str = None,
+                     from_address: str = None,
                      to_address_details: str = None, fee: float = None, gas_price: int = None, gas_limit: int = None,
                      extra_parameters: str = None) -> ApiResponse:
         params = {"coin": coin, "amount": amount, "address": address, "replace_cobo_id": replace_cobo_id,

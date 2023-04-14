@@ -1,5 +1,6 @@
 import json
 import time
+from typing import Tuple
 
 from urllib.parse import urlencode
 
@@ -38,7 +39,7 @@ class Web3Client(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response: requests.Response) -> (bool, dict):
+    def verify_response(self, response: requests.Response) -> Tuple[bool, dict]:
         content = response.content.decode()
         success = True
         try:
@@ -58,7 +59,7 @@ class Web3Client(object):
             params: dict
     ) -> ApiResponse:
         method = method.upper()
-        nonce = str(int(time.time() * 1000))
+        nonce = str(int(time.time() * 1000 * 1000))
         params = self.remove_none_value_elements(params)
         content = f"{method}|{path}|{nonce}|{self.sort_params(params)}"
         sign = self.api_signer.sign(content)
@@ -156,22 +157,26 @@ class Web3Client(object):
         return self.request("GET", "/v1/custody/web3_get_withdraw_transaction/", params)
 
     def web3_contract(self, chain_code: str, request_id: str, wallet_addr: str, contract_addr: str, method_id: str,
-                      method_name: str, args: str, amount: int = 0) -> ApiResponse:
-        params = {"chain_code": chain_code,
-                  "request_id": request_id,
-                  "wallet_addr": wallet_addr,
-                  "contract_addr": contract_addr,
-                  "method_id": method_id,
-                  "method_name": method_name,
-                  "args": args,
-                  "amount": amount, }
+                      method_name: str, args: str, amount: int = 0, gas_limit: int = None) -> ApiResponse:
+        params = {
+            "chain_code": chain_code,
+            "request_id": request_id,
+            "wallet_addr": wallet_addr,
+            "contract_addr": contract_addr,
+            "method_id": method_id,
+            "method_name": method_name,
+            "args": args,
+            "amount": amount,
+            "gas_limit": gas_limit,
+        }
         return self.request("POST", "/v1/custody/web3_contract/", params)
 
     def get_web3_contract_transaction(self, request_id: str) -> ApiResponse:
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/web3_get_contract_transaction/", params)
 
-    def list_web3_wallet_transactions(self, address: str, chain_code: str = None, max_id: str = None, min_id: str = None,
+    def list_web3_wallet_transactions(self, address: str, chain_code: str = None, max_id: str = None,
+                                      min_id: str = None,
                                       limit: int = 50) -> ApiResponse:
         params = {"address": address, "chain_code": chain_code, "max_id": max_id, "min_id": min_id, "limit": limit}
         return self.request("GET", "/v1/custody/web3_list_wallet_transactions/", params)

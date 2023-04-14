@@ -1,6 +1,7 @@
 import json
 import time
 from hashlib import sha256
+from typing import Tuple
 from urllib.parse import urlencode
 
 import requests
@@ -40,7 +41,7 @@ class Client(object):
             result.update(tmp)
         return result
 
-    def verify_response(self, response: requests.Response) -> (bool, dict):
+    def verify_response(self, response: requests.Response) -> Tuple[bool, dict]:
         content = response.content.decode()
         success = True
         try:
@@ -60,7 +61,7 @@ class Client(object):
             params: dict
     ) -> ApiResponse:
         method = method.upper()
-        nonce = str(int(time.time() * 1000))
+        nonce = str(int(time.time() * 1000 * 1000))
         params = self.remove_none_value_elements(params)
         content = f"{method}|{path}|{nonce}|{self.sort_params(params)}"
         sign = self.api_signer.sign(content)
@@ -191,6 +192,9 @@ class Client(object):
 
     def get_pending_transaction(self, id: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/pending_transaction/", {"id": id})
+
+    def get_transactions_by_request_ids(self, request_ids: str) -> ApiResponse:
+        return self.request("GET", "/v1/custody/transactions_by_request_ids/", {"request_ids": request_ids})
 
     def get_transaction_history(self, coin: str = None, side: str = None, address: str = None, max_id: str = None,
                                 min_id: str = None, limit: str = None,

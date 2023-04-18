@@ -97,6 +97,10 @@ class MPCClient(object):
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_supported_coins/", params)
 
+    def get_supported_nft_collections(self, chain_code: str) -> ApiResponse:
+        params = {"chain_code": chain_code}
+        return self.request("GET", "/v1/custody/mpc/get_supported_nft_collections/", params)
+
     def get_wallet_supported_coins(self) -> ApiResponse:
         params = {}
         return self.request("GET", "/v1/custody/mpc/get_wallet_supported_coins/", params)
@@ -135,9 +139,10 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/get_balance/", params)
 
-    def list_balances(self, page_index: int, page_length: int, coin: str = None) -> ApiResponse:
+    def list_balances(self, page_index: int, page_length: int, coin: str = None, chain_code: str = None) -> ApiResponse:
         params = {
             "coin": coin,
+            "chain_code": chain_code,
             "page_index": page_index,
             "page_length": page_length
         }
@@ -150,11 +155,11 @@ class MPCClient(object):
         }
         return self.request("GET", "/v1/custody/mpc/list_spendable/", params)
 
-    def create_transaction(self, coin: str, request_id: str, amount: str = None, from_addr: str = None,
-                           to_addr: str = None,
-                           to_address_details: str = None, fee: float = None, gas_price: int = None,
-                           gas_limit: int = None, operation: int = None,
-                           extra_parameters: str = None) -> ApiResponse:
+    def create_transaction(self, coin: str, request_id: str, amount: str, from_addr: str = None,
+                           to_addr: str = None, to_address_details: str = None, fee: float = None,
+                           gas_price: int = None, gas_limit: int = None, operation: int = None,
+                           extra_parameters: str = None, max_fee: int = None,
+                           max_priority_fee: int = None) -> ApiResponse:
         params = {
             "coin": coin,
             "request_id": request_id,
@@ -167,8 +172,21 @@ class MPCClient(object):
             "gas_limit": gas_limit,
             "operation": operation,
             "extra_parameters": extra_parameters,
+            "max_fee": max_fee,
+            "max_priority_fee": max_priority_fee,
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
+
+    def sign_message(self, chain_code: str, request_id: str, from_addr: str,
+                     sign_version: int, extra_parameters: str) -> ApiResponse:
+        params = {
+            "chain_code": chain_code,
+            "request_id": request_id,
+            "from_address": from_addr,
+            "sign_version": sign_version,
+            "extra_parameters": extra_parameters,
+        }
+        return self.request("POST", "/v1/custody/mpc/sign_message/", params)
 
     def drop_transaction(self, cobo_id: str, request_id: str, gas_price: int, gas_limit: int = None,
                          fee: float = None) -> ApiResponse:

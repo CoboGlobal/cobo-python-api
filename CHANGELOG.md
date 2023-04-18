@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.24] (2023-4-18)
+[0.24]: https://github.com/CoboCustody/cobo-python-api/compare/0.23...0.24
+### Added
+- Add MPC Web3 API. https://github.com/CoboCustody/cobo-python-api/pull/33
+
 ## [0.23] (2023-4-12)
 [0.23]: https://github.com/CoboCustody/cobo-python-api/compare/0.22...0.23
 ### Added

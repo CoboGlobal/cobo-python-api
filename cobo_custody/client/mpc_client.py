@@ -252,3 +252,7 @@ class MPCClient(object):
     def list_tss_node_requests(self, request_type: int = None, status: int = None) -> ApiResponse:
         params = {"request_type": request_type, "status": status}
         return self.request("GET", "/v1/custody/mpc/list_tss_node_requests/", params)
+
+    def retry_double_check(self, request_id: str) -> ApiResponse:
+        params = {"request_id": request_id}
+        return self.request("POST", "/v1/custody/mpc/request_id/", params)

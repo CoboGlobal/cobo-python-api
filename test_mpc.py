@@ -118,6 +118,12 @@ class MPCClientTest(unittest.TestCase):
         print(response)
         self.assertTrue(response.success)
 
+    def test_retry_double_check(self):
+        request_id = "123"
+        response = self.mpc_client.retry_double_check(request_id=request_id)
+        print(response)
+        self.assertFalse(response.success)
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

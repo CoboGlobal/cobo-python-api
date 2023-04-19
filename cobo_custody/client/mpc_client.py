@@ -255,4 +255,4 @@ class MPCClient(object):
 
     def retry_double_check(self, request_id: str) -> ApiResponse:
         params = {"request_id": request_id}
-        return self.request("POST", "/v1/custody/mpc/request_id/", params)
+        return self.request("POST", "/v1/custody/mpc/retry_double_check/", params)

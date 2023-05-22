@@ -159,7 +159,7 @@ class MPCClient(object):
                            to_addr: str = None, to_address_details: str = None, fee: float = None,
                            gas_price: int = None, gas_limit: int = None, operation: int = None,
                            extra_parameters: str = None, max_fee: int = None,
-                           max_priority_fee: int = None) -> ApiResponse:
+                           max_priority_fee: int = None, fee_amount: int = None) -> ApiResponse:
         params = {
             "coin": coin,
             "request_id": request_id,
@@ -174,6 +174,7 @@ class MPCClient(object):
             "extra_parameters": extra_parameters,
             "max_fee": max_fee,
             "max_priority_fee": max_priority_fee,
+            "fee_amount": fee_amount,
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 

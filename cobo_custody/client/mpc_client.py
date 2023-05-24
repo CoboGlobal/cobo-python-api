@@ -190,24 +190,26 @@ class MPCClient(object):
         return self.request("POST", "/v1/custody/mpc/sign_message/", params)
 
     def drop_transaction(self, cobo_id: str, request_id: str, gas_price: int, gas_limit: int = None,
-                         fee: float = None) -> ApiResponse:
+                         fee: float = None, fee_amount: int = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
             "gas_price": gas_price,
             "gas_limit": gas_limit,
             "request_id": request_id,
-            "fee": fee
+            "fee": fee,
+            "fee_amount": fee_amount,
         }
         return self.request("POST", "/v1/custody/mpc/drop_transaction/", params)
 
     def speedup_transaction(self, cobo_id: str, request_id: str, gas_price: int = None, gas_limit: int = None,
-                            fee: float = None) -> ApiResponse:
+                            fee: float = None, fee_amount: int = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,
             "gas_price": gas_price,
             "gas_limit": gas_limit,
             "request_id": request_id,
-            "fee": fee
+            "fee": fee,
+            "fee_amount": fee_amount,
         }
         return self.request("POST", "/v1/custody/mpc/speedup_transaction/", params)
 

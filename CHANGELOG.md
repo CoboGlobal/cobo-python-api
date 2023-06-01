@@ -4,27 +4,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.24] (2023-4-18)
+## [0.25] (2023-06-01)
+[0.25]: https://github.com/CoboCustody/cobo-python-api/compare/0.24...0.25
+### Added
+- MPC wallet create transaction API support param fee_amount for UTXO model. https://github.com/CoboCustody/cobo-python-api/pull/44
+
+## [0.24] (2023-04-18)
 [0.24]: https://github.com/CoboCustody/cobo-python-api/compare/0.23...0.24
 ### Added
 - Add MPC Web3 API. https://github.com/CoboCustody/cobo-python-api/pull/33
 
-## [0.23] (2023-4-12)
+## [0.23] (2023-04-12)
 [0.23]: https://github.com/CoboCustody/cobo-python-api/compare/0.22...0.23
 ### Added
 - Add Get standard tx by request_ids. https://github.com/CoboCustody/cobo-python-api/pull/36
 
-## [0.22] (2023-4-10)
+## [0.22] (2023-04-10)
 [0.22]: https://github.com/CoboCustody/cobo-python-api/compare/0.21...0.22
 ### Changed
 - Update request nonce. https://github.com/CoboCustody/cobo-python-api/pull/37
 
-## [0.21] (2023-3-13)
+## [0.21] (2023-03-13)
 [0.21]: https://github.com/CoboCustody/cobo-python-api/compare/0.20...0.21
 ### Changed
 - Update MPC wallet client. https://github.com/CoboCustody/cobo-python-api/pull/30, https://github.com/CoboCustody/cobo-python-api/pull/31
 
-## [0.20] (2023-2-16)
+## [0.20] (2023-02-16)
 [0.20]: https://github.com/CoboCustody/cobo-python-api/compare/0.19...0.20
 ### Changed
 - Update MPC wallet client. https://github.com/CoboCustody/cobo-python-api/pull/25, https://github.com/CoboCustody/cobo-python-api/pull/27

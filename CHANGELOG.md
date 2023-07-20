@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.26] (2023-07-20)
+[0.26]: https://github.com/CoboGlobal/cobo-python-api/compare/0.25...0.26
+### Added
+- Add API to list MPC TSS Node info. https://github.com/CoboGlobal/cobo-python-api/pull/48
+
 ## [0.25] (2023-06-01)
 [0.25]: https://github.com/CoboGlobal/cobo-python-api/compare/0.24...0.25
 ### Added

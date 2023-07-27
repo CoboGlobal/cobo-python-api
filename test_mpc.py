@@ -124,6 +124,16 @@ class MPCClientTest(unittest.TestCase):
         print(response)
         self.assertFalse(response.success)
 
+    def test_sign_messages_by_request_ids(self):
+        request_ids = "1690349242683,1690268795963,1690187858862"
+        response = self.mpc_client.sign_messages_by_request_ids(request_ids=request_ids)
+        print(response)
+
+    def test_sign_messages_by_cobo_ids(self):
+        cobo_ids = "20230726132723000341052000008222,20230725150636000308867000003494,20230725135301000361318000002480"
+        response = self.mpc_client.sign_messages_by_cobo_ids(cobo_ids=cobo_ids)
+        print(response)
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

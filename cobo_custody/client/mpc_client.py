@@ -262,3 +262,11 @@ class MPCClient(object):
 
     def list_tss_node(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/mpc/list_tss_node/", {})
+
+    def sign_messages_by_request_ids(self, request_ids: str) -> ApiResponse:
+        params = {"request_ids": request_ids}
+        return self.request("GET", "/v1/custody/mpc/sign_messages_by_request_ids/", params)
+
+    def sign_messages_by_cobo_ids(self, cobo_ids: str) -> ApiResponse:
+        params = {"cobo_ids": cobo_ids}
+        return self.request("GET", "/v1/custody/mpc/sign_messages_by_cobo_ids/", params)

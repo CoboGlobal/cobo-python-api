@@ -55,7 +55,7 @@ pip install cobo_custody
 ## Test
 
 ```
-python test.py --env sandbox/prod --secret <yourApiSecret>
+python test.py --env develop/prod --secret <yourApiSecret>
 ```
 
 ## Usage
@@ -77,9 +77,9 @@ Please refer to the [link](https://doc.custody.cobo.com/en.html#api-authenticati
 
 ```python
 from cobo_custody.client import Client
-from cobo_custody.config import SANDBOX_ENV
+from cobo_custody.config import DEVELOP_ENV
 from cobo_custody.signer.local_signer import LocalSigner
-client = Client(signer=signer, env=SANDBOX_ENV, debug=True)
+client = Client(signer=signer, env=DEVELOP_ENV, debug=True)
 ```
 
 #### Initialize ApiSigner

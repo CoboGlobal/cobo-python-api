@@ -1,5 +1,5 @@
-from cobo_custody.config import SANDBOX_ENV
-from cobo_custody.config import SANDBOX_TEST_DATA
+from cobo_custody.config import DEVELOP_ENV
+from cobo_custody.config import DEVELOP_TEST_DATA
 from cobo_custody.config import PROD_ENV
 from cobo_custody.config import PROD_TEST_DATA
 
@@ -16,8 +16,8 @@ from hashlib import sha256
 
 class ClientTest(unittest.TestCase):
     api_secret = "api_secret"
-    ENV = SANDBOX_ENV
-    TEST_DATA = SANDBOX_TEST_DATA
+    ENV = DEVELOP_ENV
+    TEST_DATA = DEVELOP_TEST_DATA
 
     def setUp(self):
         self.client = Client(signer=LocalSigner(self.api_secret),
@@ -352,15 +352,15 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--env", nargs='?', default="sandbox")
+        parser.add_argument("--env", nargs='?', default="develop")
         parser.add_argument("--secret",  type=str, required=True)
         args = parser.parse_args()
-        env = args.env if args.env else "sandbox"
+        env = args.env if args.env else "develop"
         api_secret = args.secret
 
         ClientTest.api_secret = api_secret
-        ClientTest.ENV = SANDBOX_ENV if env == "sandbox" else PROD_ENV
-        ClientTest.TEST_DATA = SANDBOX_TEST_DATA if env == "sandbox" else PROD_TEST_DATA
+        ClientTest.ENV = DEVELOP_ENV if env == "develop" else PROD_ENV
+        ClientTest.TEST_DATA = DEVELOP_TEST_DATA if env == "develop" else PROD_TEST_DATA
 
     # unittest.main()
     runner = unittest.TextTestRunner()

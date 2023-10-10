@@ -8,10 +8,10 @@ on:
    inputs:
       environment:
         description: 'Environment to run tests against'
-        default: sandbox
+        default: develop
         type: choice
         options:
-          - sandbox
+          - develop
           - prod
   push:
    branches: [ main ]
@@ -36,9 +36,9 @@ jobs:
 
       - name: run testcase
         env:
-            ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'sandbox'}}"
-            SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.SANDBOXSECRET}}"
-            Web3SECRET: "${{secrets.SANDBOXWEB3SECRET}}"
-            MPCSECRET: "${{secrets.SANDBOXMPCSECRET}}"
+            ENV: "${{ github.event.inputs.environment == 'prod' && 'prod' || 'develop'}}"
+            SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.DEVELOPSECRET}}"
+            Web3SECRET: "${{secrets.DEVELOPWEB3SECRET}}"
+            MPCSECRET: "${{secrets.DEVELOPMPCSECRET}}"
         run: python test.py --env $ENV --secret $SECRET --web3ApiSecret $Web3SECRET --mpcApiSecret $MPCSECRET
 

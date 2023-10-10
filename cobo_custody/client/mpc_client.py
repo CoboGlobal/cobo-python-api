@@ -189,7 +189,7 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/sign_message/", params)
 
-    def drop_transaction(self, cobo_id: str, request_id: str, gas_price: int, gas_limit: int = None,
+    def drop_transaction(self, cobo_id: str, request_id: str, gas_price: int = None, gas_limit: int = None,
                          fee: float = None, fee_amount: int = None) -> ApiResponse:
         params = {
             "cobo_id": cobo_id,

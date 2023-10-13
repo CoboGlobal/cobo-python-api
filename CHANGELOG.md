@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-
+## [0.28] (2023-10-10)
+[0.28]: https://github.com/CoboGlobal/cobo-python-api/compare/0.27...0.28
+- Update mpc drop transaction API. https://github.com/CoboGlobal/cobo-python-api/pull/53
 ## [0.27] (2023-07-27)
 [0.27]: https://github.com/CoboGlobal/cobo-python-api/compare/0.26...0.27
 ### Added

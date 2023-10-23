@@ -214,7 +214,7 @@ class Client(object):
         return self.request("GET", "/v1/custody/transaction_history/", params)
 
     def withdraw(self, coin: str, address: str, amount: int, request_id: str = None, memo: str = None,
-                 force_external: str = None, force_internal: str = None) -> ApiResponse:
+                 force_external: str = None, force_internal: str = None, remark: str = None) -> ApiResponse:
         if not request_id:
             request_id = f"sdk_request_id_{sha256(address.encode()).digest().hex()[:8]}_{str(int(time.time() * 1000))}"
 
@@ -225,7 +225,8 @@ class Client(object):
             "amount": amount,
             "memo": memo,
             "force_external": force_external,
-            "force_internal": force_internal
+            "force_internal": force_internal,
+            "remark": remark
         }
 
         return self.request("POST", "/v1/custody/new_withdraw_request/", params)

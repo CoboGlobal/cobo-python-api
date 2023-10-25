@@ -49,6 +49,14 @@ class MPCClientTest(unittest.TestCase):
         print(response)
         self.assertTrue(response.success)
 
+    def test_update_address_description(self):
+        coin = "GETH"
+        address = "0x6da78aece2d350ca4078ee66a61c3f4cc49eb9bf"
+        description = "test1"
+        response = self.mpc_client.update_address_description(coin=coin, address=address, description=description)
+        print(response)
+        self.assertTrue(response.success)
+
     def test_list_addresses(self):
         chain_code = "GETH"
         response = self.mpc_client.list_addresses(chain_code=chain_code)

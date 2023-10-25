@@ -120,6 +120,14 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/generate_addresses/", params)
 
+    def update_address_description(self, coin: str, address: str, description: str) -> ApiResponse:
+        params = {
+            "coin": coin,
+            "address": address,
+            "description": description,
+        }
+        return self.request("POST", "/v1/custody/mpc/update_address_description/", params)
+
     def list_addresses(self, chain_code: str, start_id: str = None, end_id: str = None, limit: int = None,
                        sort: int = None) -> ApiResponse:
         params = {

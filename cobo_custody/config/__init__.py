@@ -1,11 +1,11 @@
 from cobo_custody.config.env import Env
 
-DEVELOP_ENV = Env(host="https://api.dev.cobo.com",
+DEV_ENV = Env(host="https://api.dev.cobo.com",
                coboPub="03596da539963fb1dd29d5859e25903eb76b9f7ed2d58516e29c9f80c201ff2c1b")
 PROD_ENV = Env(host="https://api.custody.cobo.com",
                coboPub="02c3e5bacf436fbf4da78597e791579f022a2e85073ae36c54a361ff97f2811376")
 
-DEVELOP_TEST_DATA = {
+DEV_TEST_DATA = {
     "cobo_id": "20220314181458000331767000003732",
     "tx_id": "0x1c4d137bc2a2ee8f22cbdf9e90405974e72e65d922f42eb81d9f7a05d0f64fc6",
     "withdraw_id": "web_send_by_user_915_1647252768642",

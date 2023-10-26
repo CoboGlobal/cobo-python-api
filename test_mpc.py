@@ -1,6 +1,6 @@
 from cobo_custody.client.mpc_client import MPCClient
-from cobo_custody.config import DEVELOP_ENV
-from cobo_custody.config import DEVELOP_TEST_DATA
+from cobo_custody.config import DEV_ENV
+from cobo_custody.config import DEV_TEST_DATA
 
 import unittest
 from cobo_custody.signer.local_signer import LocalSigner
@@ -11,8 +11,8 @@ import time
 
 class MPCClientTest(unittest.TestCase):
     mpc_api_secret = ""
-    ENV = DEVELOP_ENV
-    TEST_DATA = DEVELOP_TEST_DATA
+    ENV = DEV_ENV
+    TEST_DATA = DEV_TEST_DATA
 
     def setUp(self):
         self.mpc_client = MPCClient(signer=LocalSigner(self.mpc_api_secret),
@@ -145,8 +145,8 @@ if __name__ == '__main__':
         mpc_api_secret = args.mpcApiSecret
 
         MPCClientTest.mpc_api_secret = mpc_api_secret
-        MPCClientTest.ENV = DEVELOP_ENV
-        MPCClientTest.TEST_DATA = DEVELOP_TEST_DATA
+        MPCClientTest.ENV = DEV_ENV
+        MPCClientTest.TEST_DATA = DEV_TEST_DATA
 
     # unittest.main()
     runner = unittest.TextTestRunner()

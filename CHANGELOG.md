@@ -3,9 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [0.29] (2023-10-26)
+[0.29]: https://github.com/CoboGlobal/cobo-python-api/compare/0.28...0.29
+### Added
+- Add New API: MPC Wallet add Update Address Description API. https://github.com/CoboGlobal/cobo-python-api/pull/57
+### Changed
+- Add New Params: Custodial Wallet New Withdraw Request and MPC Wallet Create Transaction API add remark param. https://github.com/CoboGlobal/cobo-python-api/pull/54
+
 ## [0.28] (2023-10-10)
 [0.28]: https://github.com/CoboGlobal/cobo-python-api/compare/0.27...0.28
+### Changed
 - Update mpc drop transaction API. https://github.com/CoboGlobal/cobo-python-api/pull/53
+
 ## [0.27] (2023-07-27)
 [0.27]: https://github.com/CoboGlobal/cobo-python-api/compare/0.26...0.27
 ### Added

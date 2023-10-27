@@ -1,5 +1,5 @@
-from cobo_custody.config import DEVELOP_ENV
-from cobo_custody.config import DEVELOP_TEST_DATA
+from cobo_custody.config import DEV_ENV
+from cobo_custody.config import DEV_TEST_DATA
 from cobo_custody.config import PROD_ENV
 from cobo_custody.config import PROD_TEST_DATA
 
@@ -16,8 +16,8 @@ from hashlib import sha256
 
 class ClientTest(unittest.TestCase):
     api_secret = "api_secret"
-    ENV = DEVELOP_ENV
-    TEST_DATA = DEVELOP_TEST_DATA
+    ENV = DEV_ENV
+    TEST_DATA = DEV_TEST_DATA
 
     def setUp(self):
         self.client = Client(signer=LocalSigner(self.api_secret),
@@ -359,8 +359,8 @@ if __name__ == '__main__':
         api_secret = args.secret
 
         ClientTest.api_secret = api_secret
-        ClientTest.ENV = DEVELOP_ENV if env == "develop" else PROD_ENV
-        ClientTest.TEST_DATA = DEVELOP_TEST_DATA if env == "develop" else PROD_TEST_DATA
+        ClientTest.ENV = DEV_ENV if env == "develop" else PROD_ENV
+        ClientTest.TEST_DATA = DEV_TEST_DATA if env == "develop" else PROD_TEST_DATA
 
     # unittest.main()
     runner = unittest.TextTestRunner()

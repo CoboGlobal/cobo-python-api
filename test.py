@@ -269,6 +269,10 @@ class ClientTest(unittest.TestCase):
         response = self.client.get_transactions_by_time()
         self.assertTrue(response.success)
 
+    def test_get_transactions_by_time_ex(self):
+        response = self.client.get_transactions_by_time_ex()
+        self.assertTrue(response.success)
+
     def test_get_pending_transactions(self):
         response = self.client.get_pending_transactions()
         self.assertTrue(response.success)

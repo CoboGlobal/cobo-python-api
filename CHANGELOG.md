@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [0.30] (2023-11-08)
+[0.30]: https://github.com/CoboGlobal/cobo-python-api/compare/0.29...0.30
+### Added
+- Add New API: Add transactions_by_time_ex API for Custody Wallet. https://github.com/CoboGlobal/cobo-python-api/pull/58
+
 ## [0.29] (2023-10-26)
 [0.29]: https://github.com/CoboGlobal/cobo-python-api/compare/0.28...0.29
 ### Added

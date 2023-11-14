@@ -1,8 +1,8 @@
 import json
 
 from cobo_custody.client.web3_client import Web3Client
-from cobo_custody.config import DEVELOP_ENV
-from cobo_custody.config import DEVELOP_TEST_DATA
+from cobo_custody.config import DEV_ENV
+from cobo_custody.config import DEV_TEST_DATA
 
 import unittest
 from cobo_custody.signer.local_signer import LocalSigner
@@ -13,8 +13,8 @@ import time
 
 class Web3ClientTest(unittest.TestCase):
     web3_api_secret = ""
-    ENV = DEVELOP_ENV
-    TEST_DATA = DEVELOP_TEST_DATA
+    ENV = DEV_ENV
+    TEST_DATA = DEV_TEST_DATA
 
     def setUp(self):
         self.web3_client = Web3Client(signer=LocalSigner(self.web3_api_secret),
@@ -142,8 +142,8 @@ if __name__ == '__main__':
         web3_api_secret = args.web3ApiSecret
 
         Web3ClientTest.web3_api_secret = web3_api_secret
-        Web3ClientTest.ENV = DEVELOP_ENV
-        Web3ClientTest.TEST_DATA = DEVELOP_TEST_DATA
+        Web3ClientTest.ENV = DEV_ENV
+        Web3ClientTest.TEST_DATA = DEV_TEST_DATA
 
     # unittest.main()
     runner = unittest.TextTestRunner()

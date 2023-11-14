@@ -179,6 +179,24 @@ class Client(object):
         }
         return self.request("GET", "/v1/custody/transactions_by_time/", params)
 
+    def get_transactions_by_time_ex(self, coins: str = None, side: int = None, address: str = None,
+                                    status: int = None,
+                                    begin_time: int = None, end_time: int = None, limit: int = None,
+                                    offset: int = None, order_by: str = None, order: str = None) -> ApiResponse:
+        params = {
+            "coins": coins,
+            "side": side,
+            "address": address,
+            "status": status,
+            "begin_time": begin_time,
+            "end_time": end_time,
+            "limit": limit,
+            "offset": offset,
+            "order_by": order_by,
+            "order": order,
+        }
+        return self.request("GET", "/v1/custody/transactions_by_time_ex/", params)
+
     def get_pending_transactions(self, coin: str = None, side: str = None,
                                  max_id: str = None, min_id: str = None, limit: str = None) -> ApiResponse:
         params = {

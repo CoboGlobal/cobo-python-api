@@ -98,6 +98,9 @@ class Client(object):
     def get_coin_info(self, coin: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/coin_info/", {"coin": coin})
 
+    def get_supported_coins(self, ) -> ApiResponse:
+        return self.request("GET", "/v1/custody/get_supported_coins/", {})
+
     def new_deposit_address(self, coin: str, native_segwit: bool = False) -> ApiResponse:
         params = {
             "coin": coin
@@ -216,7 +219,8 @@ class Client(object):
 
     def get_transaction_history(self, coin: str = None, side: str = None, address: str = None, max_id: str = None,
                                 min_id: str = None, limit: str = None,
-                                begin_time: str = None, end_time: str = None, include_financial: str = None) -> ApiResponse:
+                                begin_time: str = None, end_time: str = None,
+                                include_financial: str = None) -> ApiResponse:
         params = {
             "coin": coin,
             "side": side,

@@ -93,41 +93,41 @@ class MPCPrimeBrokerClient(object):
         params = {
             "user_id": user_id,
         }
-        return self.request("POST", "/v1/custody/guards/create_binding/", params)
+        return self.request("POST", "/v1/custody/guard/create_binding/", params)
 
     def query_binding(self, binder_id: str):
         params = {
             "binder_id": binder_id,
         }
-        return self.request("GET", "/v1/custody/guards/query_binding/", params)
+        return self.request("GET", "/v1/custody/guard/query_binding/", params)
 
     def query_user_auth(self, user_id: str):
         params = {
             "user_id": user_id,
         }
-        return self.request("GET", "/v1/custody/guards/query_user_auth/", params)
+        return self.request("GET", "/v1/custody/guard/query_user_auth/", params)
 
     def bind_addresses(self, user_id: str, addresses: str):
         params = {
             "user_id": user_id,
             "addresses": addresses,
         }
-        return self.request("POST", "/v1/custody/guards/bind_addresses/", params)
+        return self.request("POST", "/v1/custody/guard/bind_addresses/", params)
 
     def change_binding(self, user_id: str):
         params = {
             "user_id": user_id,
         }
-        return self.request("POST", "/v1/custody/guards/change_binding/", params)
+        return self.request("POST", "/v1/custody/guard/change_binding/", params)
 
     def unbind_binding(self, user_id: str):
         params = {
             "user_id": user_id,
         }
-        return self.request("POST", "/v1/custody/guards/unbind_binding/", params)
+        return self.request("POST", "/v1/custody/guard/unbind_binding/", params)
 
     def query_statement(self, statement_id: str):
         params = {
             "statement_id": statement_id,
         }
-        return self.request("GET", "/v1/custody/guards/query_statement/", params)
+        return self.request("GET", "/v1/custody/guard/query_statement/", params)

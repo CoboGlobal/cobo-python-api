@@ -71,7 +71,7 @@ from cobo_custody.signer.local_signer import LocalSigner
 client = Client(signer=signer, env=DEV_ENV, debug=True)
 ```
 
-### Complete Code Sample
+#### Complete Code Sample
 ```python
 from cobo_custody.signer.local_signer import generate_new_key
 from cobo_custody.client import Client

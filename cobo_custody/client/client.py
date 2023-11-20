@@ -98,7 +98,7 @@ class Client(object):
     def get_coin_info(self, coin: str) -> ApiResponse:
         return self.request("GET", "/v1/custody/coin_info/", {"coin": coin})
 
-    def get_supported_coins(self, ) -> ApiResponse:
+    def get_supported_coins(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/get_supported_coins/", {})
 
     def new_deposit_address(self, coin: str, native_segwit: bool = False) -> ApiResponse:

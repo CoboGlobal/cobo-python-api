@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [0.31] (2023-11-22)
+[0.31]: https://github.com/CoboGlobal/cobo-python-api/compare/0.30...0.31
+### Added
+- Add API for Primer Broker to facilitate MPC wallet integration with Cobo Guard. https://github.com/CoboGlobal/cobo-python-api/pull/63
+
 ## [0.30] (2023-11-08)
 [0.30]: https://github.com/CoboGlobal/cobo-python-api/compare/0.29...0.30
 ### Added

@@ -10,7 +10,7 @@ This repository contains the official Python SDK for Cobo WaaS API, enabling dev
 ## Documentation
 To access the API documentation, navigate to the [API references](https://www.cobo.com/developers/api-references/overview/).
 
-For more information on Cobo's Python SDK, refer to the [Python SDK Guide](https://www.cobo.com/developers/get-started/sdks/waas/python).
+For more information on Cobo's Python SDK, refer to the [Python SDK Guide](https://www.cobo.com/developers/sdks-and-tools/sdks/waas/python).
 
 ## Usage
 

@@ -279,3 +279,9 @@ class MPCClient(object):
     def sign_messages_by_cobo_ids(self, cobo_ids: str) -> ApiResponse:
         params = {"cobo_ids": cobo_ids}
         return self.request("GET", "/v1/custody/mpc/sign_messages_by_cobo_ids/", params)
+
+    def get_max_send_amount(self, coin: str, fee_rate: float, to_address: str, from_address: str = None):
+        params = {"coin": coin, "fee_rate": fee_rate, "to_address": to_address}
+        if from_address:
+            params["from_address"] = from_address
+        return self.request("GET", "/v1/custody/mpc/get_max_send_amount/", params)

@@ -142,6 +142,10 @@ class MPCClientTest(unittest.TestCase):
         response = self.mpc_client.sign_messages_by_cobo_ids(cobo_ids=cobo_ids)
         print(response)
 
+    def test_get_max_send_amount(self):
+        response = self.mpc_client.get_max_send_amount(coin="GETH", fee_rate=0, to_address='0xEEACb7a5e53600c144C0b9839A834bb4b39E540c')
+        print(response)
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:

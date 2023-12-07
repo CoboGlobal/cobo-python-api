@@ -351,6 +351,10 @@ class ClientTest(unittest.TestCase):
         response = self.client.get_staking_history()
         self.assertTrue(response.success)
 
+    def test_get_gas_station_balance(self):
+        response = self.client.get_gas_station_balance()
+        self.assertTrue(response.success)
+
 
 if __name__ == '__main__':
 

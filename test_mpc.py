@@ -90,6 +90,17 @@ class MPCClientTest(unittest.TestCase):
         print(response)
         self.assertTrue(response.success)
 
+    def test_create_transaction_gas_station(self):
+        coin = "GETH"
+        request_id = str(int(time.time() * 1000))
+        from_addr = "0x3ede1e59a3f3a66de4260df7ba3029b515337e5c"
+        to_addr = "0xEEACb7a5e53600c144C0b9839A834bb4b39E540c"
+        amount = "10"
+        response = self.mpc_client.create_transaction(coin=coin, request_id=request_id, from_addr=from_addr,
+                                                      to_addr=to_addr, amount=amount, auto_fuel=2)
+        print(response)
+        self.assertTrue(response.success)
+
     def test_transactions_by_request_ids(self):
         request_ids = "1668678820274"
         response = self.mpc_client.transactions_by_request_ids(request_ids=request_ids)

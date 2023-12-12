@@ -16,7 +16,9 @@ on:
   push:
    branches: [ main ]
   pull_request:
-   branches: [ main ]
+   branches:
+     - main
+     - 'main/**'
 
 jobs:
   test:
@@ -40,5 +42,5 @@ jobs:
             SECRET: "${{ github.event.inputs.environment == 'prod' && secrets.PRODSECRET || secrets.DEVELOPSECRET}}"
             Web3SECRET: "${{secrets.DEVELOPWEB3SECRET}}"
             MPCSECRET: "${{secrets.DEVELOPMPCSECRET}}"
-        run: python test.py --env $ENV --secret $SECRET --web3ApiSecret $Web3SECRET --mpcApiSecret $MPCSECRET
+        run: python tests/run_test.py  --api_secret  $SECRET --mpc_api_secret $MPCSECRET
 

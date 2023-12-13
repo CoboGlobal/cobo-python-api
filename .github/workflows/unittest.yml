@@ -16,15 +16,15 @@ on:
   push:
    branches: [ main ]
   pull_request:
-   branches:
-     - main
-     - 'main/**'
+   branches: [ main ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+            ref: ${{ github.event.pull_request.head.sha }}
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:

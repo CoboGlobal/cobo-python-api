@@ -183,9 +183,9 @@ class Client(object):
         return self.request("GET", "/v1/custody/transactions_by_time/", params)
 
     def get_transactions_by_time_ex(self, coins: str = None, side: int = None, address: str = None,
-                                    status: int = None,
-                                    begin_time: int = None, end_time: int = None, limit: int = None,
-                                    offset: int = None, order_by: str = None, order: str = None) -> ApiResponse:
+                                    status: int = None, begin_time: int = None, end_time: int = None,
+                                    limit: int = None, offset: int = None, order_by: str = None,
+                                    order: str = None, txid: str = None) -> ApiResponse:
         params = {
             "coins": coins,
             "side": side,
@@ -197,6 +197,7 @@ class Client(object):
             "offset": offset,
             "order_by": order_by,
             "order": order,
+            "txid": txid,
         }
         return self.request("GET", "/v1/custody/transactions_by_time_ex/", params)
 

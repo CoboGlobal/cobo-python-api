@@ -1,3 +1,5 @@
+import sys 
+sys.path.append("..")
 import unittest
 import argparse
 from cobo_custody.config import DEV_ENV

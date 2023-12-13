@@ -1,25 +1,22 @@
 import json
+import unittest
+import time
 
 from cobo_custody.client.web3_client import Web3Client
-from cobo_custody.config import DEV_ENV
-from cobo_custody.config import DEV_TEST_DATA
-
-import unittest
 from cobo_custody.signer.local_signer import LocalSigner
-import sys
-import argparse
-import time
 
 
 class Web3ClientTest(unittest.TestCase):
-    web3_api_secret = ""
-    ENV = DEV_ENV
-    TEST_DATA = DEV_TEST_DATA
 
-    def setUp(self):
-        self.web3_client = Web3Client(signer=LocalSigner(self.web3_api_secret),
-                                    env=self.ENV,
-                                    debug=False)
+    web3_api_secret = ""
+    env = None
+    test_data = ""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.web3_client = Web3Client(signer=LocalSigner(cls.web3_api_secret),
+                                     env=cls.env,
+                                     debug=False)
 
     def test_get_web3_supported_chains(self):
         response = self.web3_client.get_web3_supported_chains()
@@ -46,7 +43,8 @@ class Web3ClientTest(unittest.TestCase):
     def test_get_web3_supported_contract_methods(self):
         chain_code = "GETH"
         contract_address = "0x7851dcc90e79f3f2c59915e7f4d6fabd8d3d305b"
-        response = self.web3_client.get_web3_supported_contract_methods(chain_code=chain_code, contract_address=contract_address)
+        response = self.web3_client.get_web3_supported_contract_methods(chain_code=chain_code,
+                                                                        contract_address=contract_address)
         print(response)
         self.assertTrue(response.success)
 
@@ -61,7 +59,8 @@ class Web3ClientTest(unittest.TestCase):
         chain_code = "GETH"
         page_index = 0
         page_length = 20
-        response = self.web3_client.get_web3_address_list(chain_code=chain_code, page_index=page_index, page_length=page_length)
+        response = self.web3_client.get_web3_address_list(chain_code=chain_code, page_index=page_index,
+                                                          page_length=page_length)
         print(response)
         self.assertTrue(response.success)
 
@@ -113,7 +112,8 @@ class Web3ClientTest(unittest.TestCase):
         args = json.dumps(["0x040149e133077aebcfe4594e00638135eb4bc77f", 1])
         amount = 0
         response = self.web3_client.web3_contract(chain_code=chain_code, request_id=request_id, wallet_addr=wallet_addr,
-                                                  contract_addr=contract_addr, method_id=method_id, method_name=method_name,
+                                                  contract_addr=contract_addr, method_id=method_id,
+                                                  method_name=method_name,
                                                   args=args, amount=amount)
         print(response)
         self.assertTrue(response.success)
@@ -130,22 +130,3 @@ class Web3ClientTest(unittest.TestCase):
         response = self.web3_client.list_web3_wallet_transactions(address=address, chain_code=chain_code)
         print(response)
         self.assertTrue(response.success)
-
-
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--env", nargs='?', default="develop")
-        parser.add_argument("--web3ApiSecret", type=str, required=True)
-        args = parser.parse_args()
-        env = args.env if args.env else "develop"
-        web3_api_secret = args.web3ApiSecret
-
-        Web3ClientTest.web3_api_secret = web3_api_secret
-        Web3ClientTest.ENV = DEV_ENV
-        Web3ClientTest.TEST_DATA = DEV_TEST_DATA
-
-    # unittest.main()
-    runner = unittest.TextTestRunner()
-    suite = unittest.TestLoader().loadTestsFromTestCase(Web3ClientTest)
-    runner.run(suite)

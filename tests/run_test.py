@@ -1,5 +1,5 @@
 import sys 
-sys.path.append("..")
+sys.path.insert(0, sys.path[0]+"/../")
 import unittest
 import argparse
 from cobo_custody.config import DEV_ENV

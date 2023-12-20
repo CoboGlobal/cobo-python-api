@@ -95,8 +95,8 @@ class Client(object):
     def get_account_info(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/org_info/", {})
 
-    def get_coin_info(self, coin: str) -> ApiResponse:
-        return self.request("GET", "/v1/custody/coin_info/", {"coin": coin})
+    def get_coin_info(self, coin: str, amount: int = None) -> ApiResponse:
+        return self.request("GET", "/v1/custody/coin_info/", {"coin": coin, "amount": amount})
 
     def get_supported_coins(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/get_supported_coins/", {})

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [0.33] (2023-12-21)
+[0.33]: https://github.com/CoboGlobal/cobo-python-api/compare/0.32...0.33
+### Added
+- Add New Params: Add parameter `amount` for API coin_info for Custodial Wallet. https://github.com/CoboGlobal/cobo-python-api/pull/72
+
+## [0.32] (2023-12-07)
+[0.32]: https://github.com/CoboGlobal/cobo-python-api/compare/0.31...0.32
+### Added
+- Add New API: Add get_max_send_amount API for MPC Wallet. https://github.com/CoboGlobal/cobo-python-api/pull/67
+
 ## [0.31] (2023-11-22)
 [0.31]: https://github.com/CoboGlobal/cobo-python-api/compare/0.30...0.31
 ### Added

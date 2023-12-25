@@ -4,3 +4,6 @@ venv
 /cobo_python_api.egg-info
 cobo_custody.egg-info
 .DS_Store
+__pycache__/
+.python-version
+.tox

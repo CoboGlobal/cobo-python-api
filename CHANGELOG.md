@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.34] (2023-12-27)
+[0.34]: https://github.com/CoboGlobal/cobo-python-api/compare/0.33...0.34
+### Added
+- Add New API: Add APIs for Gas Station. https://github.com/CoboGlobal/cobo-python-api/pull/74
+
 ## [0.33] (2023-12-21)
 [0.33]: https://github.com/CoboGlobal/cobo-python-api/compare/0.32...0.33
 ### Added

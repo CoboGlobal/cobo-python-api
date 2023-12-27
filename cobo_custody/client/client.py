@@ -277,3 +277,6 @@ class Client(object):
 
     def get_staking_history(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/staking_history/", {})
+
+    def get_gas_station_balance(self) -> ApiResponse:
+        return self.request("GET", "/v1/custody/get_gas_station_balance/", {})

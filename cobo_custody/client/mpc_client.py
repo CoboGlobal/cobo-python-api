@@ -298,6 +298,6 @@ class MPCClient(object):
         params = {"coin": coin, "tx_hash": tx_hash, "vout_n": vout_n}
         return self.request("POST", "/v1/custody/mpc/unlock_spendable/", params)
 
-    def get_rare_satoshis(self, coin: str, tx_hash: str, vout_n: str, rare_type: int):
-        params = {"coin": coin, "tx_hash": tx_hash, "vout_n": vout_n, "rare_type": rare_type}
+    def get_rare_satoshis(self, coin: str, tx_hash: str, vout_n: str):
+        params = {"coin": coin, "tx_hash": tx_hash, "vout_n": vout_n}
         return self.request("POST", "/v1/custody/mpc/get_rare_satoshis/", params)

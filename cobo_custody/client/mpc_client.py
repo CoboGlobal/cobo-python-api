@@ -120,6 +120,14 @@ class MPCClient(object):
         }
         return self.request("POST", "/v1/custody/mpc/generate_addresses/", params)
 
+    def generate_address_memo(self, chain_code: str, address: str, count: int) -> ApiResponse:
+        params = {
+            "chain_code": chain_code,
+            "address": address,
+            "count": count,
+        }
+        return self.request("POST", "/v1/custody/mpc/generate_address_memo/", params)
+
     def update_address_description(self, coin: str, address: str, description: str) -> ApiResponse:
         params = {
             "coin": coin,
@@ -168,7 +176,7 @@ class MPCClient(object):
                            gas_price: int = None, gas_limit: int = None, operation: int = None,
                            extra_parameters: str = None, max_fee: int = None,
                            max_priority_fee: int = None, fee_amount: int = None, remark: str = None,
-                           auto_fuel: int = 0) -> ApiResponse:
+                           auto_fuel: int = 0, memo: str = "") -> ApiResponse:
         params = {
             "coin": coin,
             "request_id": request_id,
@@ -186,6 +194,7 @@ class MPCClient(object):
             "fee_amount": fee_amount,
             "remark": remark,
             "auto_fuel": auto_fuel,
+            "memo": memo,
         }
         return self.request("POST", "/v1/custody/mpc/create_transaction/", params)
 

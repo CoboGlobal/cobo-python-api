@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.35] (2023-12-28)
+[0.35]: https://github.com/CoboGlobal/cobo-python-api/compare/0.34...0.35
+### Added
+- Add New API: Add APIs for MPC Release Satoshis. https://github.com/CoboGlobal/cobo-java-api/pull/115
+
 ## [0.34] (2023-12-27)
 [0.34]: https://github.com/CoboGlobal/cobo-python-api/compare/0.33...0.34
 ### Added

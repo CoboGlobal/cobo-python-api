@@ -1,7 +1,7 @@
 from setuptools import setup
 setup(
     name="cobo_custody",
-    version="0.35",
+    version="0.36",
     author="Cobo",
     author_email="support@cobo.com",
     description="Cobo Custody restful api",

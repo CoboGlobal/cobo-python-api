@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.37] (2024-02-28)
+[0.37]: https://github.com/CoboGlobal/cobo-python-api/compare/0.36...0.37
+### Added
+- Add New Params: Add new parameter 'extra_parameters' for API mpc_speedup_transaction and mpc_drop_transaction. https://github.com/CoboGlobal/cobo-python-api/pull/82
+
 ## [0.36] (2024-01-04)
 [0.36]: https://github.com/CoboGlobal/cobo-python-api/compare/0.35...0.36
 ### Added

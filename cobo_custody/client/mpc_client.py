@@ -315,3 +315,11 @@ class MPCClient(object):
     def get_rare_satoshis(self, coin: str, tx_hash: str, vout_n: int):
         params = {"coin": coin, "tx_hash": tx_hash, "vout_n": vout_n}
         return self.request("GET", "/v1/custody/mpc/get_rare_satoshis/", params)
+
+    def get_utxo_assets(self, coin: str, tx_hash: str, vout_n: int):
+        params = {"coin": coin, "tx_hash": tx_hash, "vout_n": vout_n}
+        return self.request("GET", "/v1/custody/mpc/get_utxo_assets/", params)
+
+    def get_ordinals_inscription(self, inscription_id: str):
+        params = {"inscription_id": inscription_id}
+        return self.request("GET", "/v1/custody/mpc/get_ordinals_inscription/", params)

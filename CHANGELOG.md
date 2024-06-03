@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.39] (2024-06-03)
+[0.39]: https://github.com/CoboGlobal/cobo-python-api/compare/0.38...0.39
+### Added
+- Add APIs for the Babylon Staking of MPC Wallet. https://github.com/CoboGlobal/cobo-python-api/pull/86
+
 ## [0.38] (2024-04-15)
 [0.38]: https://github.com/CoboGlobal/cobo-python-api/compare/0.37...0.38
 ### Added

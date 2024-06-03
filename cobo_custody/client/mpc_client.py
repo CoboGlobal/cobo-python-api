@@ -323,3 +323,24 @@ class MPCClient(object):
     def get_ordinals_inscription(self, inscription_id: str):
         params = {"inscription_id": inscription_id}
         return self.request("GET", "/v1/custody/mpc/get_ordinals_inscription/", params)
+
+    def babylon_prepare_staking(self, request_id: str, stake_info: str, fee_rate: float, max_staking_fee: int = None):
+        params = {"request_id": request_id, "stake_info": stake_info, "fee_rate": fee_rate, "max_staking_fee": max_staking_fee}
+        return self.request("POST", "/v1/custody/mpc/babylon/prepare_staking/", params)
+
+    def babylon_replace_staking_fee(self, request_id: str, related_request_id: str, fee_rate: float, max_staking_fee: int = None):
+        params = {"request_id": request_id, "related_request_id": related_request_id, "fee_rate": fee_rate, "max_staking_fee": max_staking_fee}
+        return self.request("POST", "/v1/custody/mpc/babylon/replace_staking_fee/", params)
+
+    def babylon_broadcast_staking_transaction(self, request_id: str):
+        params = {"request_id": request_id}
+        return self.request("POST", "/v1/custody/mpc/babylon/broadcast_staking_transaction/", params)
+
+    def babylon_get_staking_info(self, request_id: str):
+        params = {"request_id": request_id}
+        return self.request("GET", "/v1/custody/mpc/babylon/get_staking_info/", params)
+
+    def babylon_list_waiting_broadcast_transactions(self, asset_coin: str, address: str):
+        params = {"asset_coin": asset_coin, "address": address}
+        return self.request("GET", "/v1/custody/mpc/babylon/list_waiting_broadcast_transactions/", params)
+

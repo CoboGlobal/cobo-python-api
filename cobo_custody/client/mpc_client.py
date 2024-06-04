@@ -116,10 +116,11 @@ class MPCClient(object):
         params = {"chain_code": chain_code}
         return self.request("GET", "/v1/custody/mpc/get_main_address/", params)
 
-    def generate_addresses(self, chain_code: str, count: int) -> ApiResponse:
+    def generate_addresses(self, chain_code: str, count: int, encoding: int = None) -> ApiResponse:
         params = {
             "chain_code": chain_code,
             "count": count,
+            "encoding": encoding
         }
         return self.request("POST", "/v1/custody/mpc/generate_addresses/", params)
 
@@ -343,4 +344,8 @@ class MPCClient(object):
     def babylon_list_waiting_broadcast_transactions(self, asset_coin: str, address: str):
         params = {"asset_coin": asset_coin, "address": address}
         return self.request("GET", "/v1/custody/mpc/babylon/list_waiting_broadcast_transactions/", params)
+
+    def get_approval_details(self,  request_id: str):
+        params = {"request_id": request_id}
+        return self.request("GET", "/v1/custody/mpc/get_approval_details/", params)
 

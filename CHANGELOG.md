@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.40] (2024-06-04)
+[0.40]: https://github.com/CoboGlobal/cobo-python-api/compare/0.39...0.40
+### Added
+- Add New Params: Add new parameter `encoding` for API mpc_generate_addresses. https://github.com/CoboGlobal/cobo-python-api/pull/88
+
 ## [0.39] (2024-06-03)
 [0.39]: https://github.com/CoboGlobal/cobo-python-api/compare/0.38...0.39
 ### Added

@@ -1,6 +1,6 @@
 import json
 import time
-from typing import Tuple
+from typing import Tuple, List
 from urllib.parse import urlencode
 
 import requests
@@ -336,6 +336,10 @@ class MPCClient(object):
     def babylon_broadcast_staking_transaction(self, request_id: str):
         params = {"request_id": request_id}
         return self.request("POST", "/v1/custody/mpc/babylon/broadcast_staking_transaction/", params)
+
+    def babylon_batch_broadcast_staking_transaction(self, request_ids: List[str]):
+        params = {"request_ids": ','.join(request_ids)}
+        return self.request("POST", "/v1/custody/mpc/babylon/batch_broadcast_staking_transaction/", params)
 
     def babylon_get_staking_info(self, request_id: str):
         params = {"request_id": request_id}

@@ -349,6 +349,10 @@ class MPCClient(object):
         params = {"asset_coin": asset_coin, "address": address}
         return self.request("GET", "/v1/custody/mpc/babylon/list_waiting_broadcast_transactions/", params)
 
+    def babylon_list_transactions_by_status(self, status: int, address: str = None, min_cobo_id: str = None, limit: int = None):
+        params = {"status": status, "address": address, "min_cobo_id": min_cobo_id, "limit": limit}
+        return self.request("GET", "/v1/custody/mpc/babylon/list_transactions_by_status/", params)
+
     def get_approval_details(self,  request_id: str):
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/mpc/get_approval_details/", params)

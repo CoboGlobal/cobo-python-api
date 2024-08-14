@@ -333,6 +333,10 @@ class MPCClient(object):
         params = {"request_id": request_id, "related_request_id": related_request_id, "fee_rate": fee_rate, "max_staking_fee": max_staking_fee}
         return self.request("POST", "/v1/custody/mpc/babylon/replace_staking_fee/", params)
 
+    def babylon_drop_staking(self, request_id: str, related_request_id: str, fee_rate: float, max_staking_fee: int = None):
+        params = {"request_id": request_id, "related_request_id": related_request_id, "fee_rate": fee_rate, "max_staking_fee": max_staking_fee}
+        return self.request("POST", "/v1/custody/mpc/babylon/drop_staking/", params)
+
     def babylon_broadcast_staking_transaction(self, request_id: str):
         params = {"request_id": request_id}
         return self.request("POST", "/v1/custody/mpc/babylon/broadcast_staking_transaction/", params)

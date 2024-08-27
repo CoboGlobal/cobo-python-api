@@ -357,6 +357,14 @@ class MPCClient(object):
         params = {"status": status, "address": address, "min_cobo_id": min_cobo_id, "limit": limit}
         return self.request("GET", "/v1/custody/mpc/babylon/list_transactions_by_status/", params)
 
+    def babylon_unbonding(self, request_id: str, staking_request_id: str):
+        params = {"request_id": request_id, "staking_request_id": staking_request_id}
+        return self.request("POST", "/v1/custody/mpc/babylon/unbonding/", params)
+
+    def babylon_withdraw(self, request_id: str, fee_rate: float, max_fee_amount: int = None, unbonding_request_id: str = None, staking_request_id: str = None):
+        params = {"request_id": request_id, "fee_rate": fee_rate, "max_fee_amount": max_fee_amount, "unbonding_request_id": unbonding_request_id, "staking_request_id": staking_request_id}
+        return self.request("POST", "/v1/custody/mpc/babylon/withdraw/", params)
+
     def get_approval_details(self,  request_id: str):
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/mpc/get_approval_details/", params)

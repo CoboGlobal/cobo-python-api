@@ -278,7 +278,7 @@ class MPCClient(object):
         params = {"coin": coin, "amount": amount, "address": address, "replace_cobo_id": replace_cobo_id,
                   "from_address": from_address, "to_address_details": to_address_details, "fee": fee,
                   "gas_price": gas_price, "gas_limit": gas_limit, "extra_parameters": extra_parameters}
-        return self.request("GET", "/v1/custody/mpc/estimate_fee/", params)
+        return self.request("POST", "/v1/custody/mpc/estimate_fee/", params)
 
     def list_tss_node_requests(self, request_type: int = None, status: int = None) -> ApiResponse:
         params = {"request_type": request_type, "status": status}

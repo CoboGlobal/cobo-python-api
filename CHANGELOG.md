@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.44] (2024-09-02)
+[0.44]: https://github.com/CoboGlobal/cobo-python-api/compare/0.43...0.44
+### Added
+- Add New API `babylon_unbonding` and `babylon_withdraw` for MPC Wallet. https://github.com/CoboGlobal/cobo-python-api/pull/96
+- The method of the `estimate_fee` API for the MPC wallet has been changed from GET to POST. https://github.com/CoboGlobal/cobo-python-api/pull/97
+
 ## [0.43] (2024-08-14)
 [0.43]: https://github.com/CoboGlobal/cobo-python-api/compare/0.42...0.43
 ### Added

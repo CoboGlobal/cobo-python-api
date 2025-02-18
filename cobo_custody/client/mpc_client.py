@@ -369,3 +369,32 @@ class MPCClient(object):
         params = {"request_id": request_id}
         return self.request("GET", "/v1/custody/mpc/get_approval_details/", params)
 
+    def list_eligibles(self, status: str = None, min_id: str = None, limit: int = None) -> ApiResponse:
+        params = {
+            "status": status,
+            "min_id": min_id,
+            "limit": limit
+        }
+        return self.request("GET", "/v1/custody/mpc/babylon/airdrops/list_eligibles/", params)
+
+    def submit_registration(self, btc_address: str, babylon_address: str) -> ApiResponse:
+        params = {
+            "btc_address": btc_address,
+            "babylon_address": babylon_address
+        }
+        return self.request("POST", "/v1/custody/mpc/babylon/airdrops/submit_registration/", params)
+
+    def list_registrations(self, status: str = None, btc_address: str = None, min_id: str = None, limit: int = None) -> ApiResponse:
+        params = {
+            "status": status,
+            "btc_address": btc_address,
+            "min_id": min_id,
+            "limit": limit
+        }
+        return self.request("GET", "/v1/custody/mpc/babylon/airdrops/list_registrations/", params)
+
+    def get_registration(self, registration_id: str) -> ApiResponse:
+        params = {
+            "registration_id": registration_id
+        }
+        return self.request("GET", "/v1/custody/mpc/babylon/airdrops/get_registration/", params)

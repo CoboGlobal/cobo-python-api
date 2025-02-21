@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.45] (2025-02-21)
+[0.45]: https://github.com/CoboGlobal/cobo-python-api/compare/0.44...0.45
+### Added
+- Add babylon airdrop interface. https://github.com/CoboGlobal/cobo-python-api/pull/101
+
 ## [0.44] (2024-09-02)
 [0.44]: https://github.com/CoboGlobal/cobo-python-api/compare/0.43...0.44
 ### Added

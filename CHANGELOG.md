@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.46] (2025-03-06)
+[0.46]: https://github.com/CoboGlobal/cobo-python-api/compare/0.45...0.46
+### Added
+- Add babylon claim rewards interface. https://github.com/CoboGlobal/cobo-python-api/pull/106
+- Add babylon register staking interface. https://github.com/CoboGlobal/cobo-python-api/pull/105
+
 ## [0.45] (2025-02-21)
 [0.45]: https://github.com/CoboGlobal/cobo-python-api/compare/0.44...0.45
 ### Added

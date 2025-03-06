@@ -398,3 +398,33 @@ class MPCClient(object):
             "registration_id": registration_id
         }
         return self.request("GET", "/v1/custody/mpc/babylon/airdrops/get_registration/", params)
+
+    def list_eligible_stakings(self, status: str = None, min_id: str = None, limit: int = None) -> ApiResponse:
+        params = {
+            "status": status,
+            "min_id": min_id,
+            "limit": limit
+        }
+        return self.request("GET", "/v1/custody/mpc/babylon/stakings/list_eligibles/", params)
+
+    def submit_staking_registration(self, staking_id: str, babylon_address: str) -> ApiResponse:
+        params = {
+            "staking_id": staking_id,
+            "babylon_address": babylon_address
+        }
+        return self.request("POST", "/v1/custody/mpc/babylon/stakings/submit_registration/", params)
+
+    def list_staking_registrations(self, staking_id: str, status: str = None, min_id: str = None, limit: int = None) -> ApiResponse:
+        params = {
+            "staking_id": staking_id,
+            "status": status,
+            "min_id": min_id,
+            "limit": limit
+        }
+        return self.request("GET", "/v1/custody/mpc/babylon/stakings/list_registrations/", params)
+
+    def get_staking_registration(self, registration_id: str) -> ApiResponse:
+        params = {
+            "registration_id": registration_id
+        }
+        return self.request("GET", "/v1/custody/mpc/babylon/stakings/get_registration/", params)

@@ -428,3 +428,9 @@ class MPCClient(object):
             "registration_id": registration_id
         }
         return self.request("GET", "/v1/custody/mpc/babylon/stakings/get_registration/", params)
+
+    def claim_babylon_rewards(self, babylon_address: str):
+        params = {
+            "babylon_address": babylon_address
+        }
+        return self.request("POST", "/v1/custody/mpc/babylon/claim_rewards/", params)

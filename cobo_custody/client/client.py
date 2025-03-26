@@ -280,3 +280,6 @@ class Client(object):
 
     def get_gas_station_balance(self) -> ApiResponse:
         return self.request("GET", "/v1/custody/get_gas_station_balance/", {})
+
+    def add_coin(self, coin: str) -> ApiResponse:
+        return self.request("POST", "/v1/custody/add_coin/", {"coin": coin})

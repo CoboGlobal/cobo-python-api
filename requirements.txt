@@ -1,2 +1,2 @@
-ecdsa==0.17.0
+ecdsa==0.19.2
 requests
